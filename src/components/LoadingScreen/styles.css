@@ -1,0 +1,95 @@
+.loadingScreen{
+    position: absolute;
+    display: flex;
+        justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9990;
+  overflow: hidden;
+}
+.overlay_content{
+    width: 18rem;
+    height: 18rem;
+    object-fit: contain;
+    border-radius: 50%;
+    border:none;
+    box-shadow: 1px 1px 1px #fff;
+    padding: 15px; 
+    transition: 1s ease;
+    animation: loading .38s infinite ease-in;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    /* margin-left: calc(50% - 200px) */
+}
+
+@keyframes loading {
+  0% {
+     
+  box-shadow: 2px 1px 1px 1px #fff;
+ 
+    }
+
+    30%{
+        box-shadow: -1px 1px 1px 1px #fff;
+  
+    }
+
+    60%{
+        box-shadow: 1px -1px 1px 1px #fff;
+  
+    }
+    100% {
+      box-shadow: 2px 1px 1px 1px #fff;
+      
+    }
+}
+
+.overlay_content img{
+   width: 85%; 
+   transition: 1s ease;
+   animation: loadingImg 3s infinite;
+}
+/* @keyframes loadingImg {
+    0% {
+opacity: 1;   
+      }
+  
+      50%{
+        opacity: 0.2;  
+        
+      }
+      100% {
+        opacity: 1;  
+         
+      }
+  } */
+.first{
+    background-color: #000;
+    left: 0;
+   
+}
+
+.second{
+    background-color: #000;
+    left: 33.3%;
+    
+ 
+}
+
+.third{
+    background-color: #000;
+    left: 66.6%;
+    z-index: 9998;
+}

@@ -1,0 +1,122 @@
+/* NAVBAR */
+ 
+.testimonials{
+background: rgb(252, 252, 252);
+}
+.testimonial_companies{
+   width: 100%;
+   padding: 0 30px;
+   object-fit: contain;
+}
+.testimonial_companies img{
+width: inherit;
+height: inherit;
+}
+.testimonials_container{
+   padding: 15px 160px;
+}
+.testimonials_container h3 {
+   font-size: 30px;
+   font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
+   color: #000;
+   margin-top: 55px;
+}
+ 
+
+ .testimonial_cards {
+   display: flex;   
+ 
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center; 
+   margin-bottom: 20px;
+ }
+
+ .testimonial_card{
+   border: 1px solid;
+  border-radius: 15px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-direction: row;
+   max-width: 380px;
+   height: 140px;
+   animation: animate_testimonial_card 3s infinite;
+ }
+
+ @keyframes animate_testimonial_card {
+   0%{
+     transform: translateY(0);
+   }
+   50%{
+     transform: translateY(10px);
+   }
+   100%{
+     transform: translateY(0);
+   }
+ }
+ .testimonial_card_left {
+   padding: 10px 15px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+ 
+    height: 100%;
+       width: 75%;
+ }
+.testimonial_card_left p {
+    
+   font-size: 14px;
+   font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.testimonial_card_right{
+   background-color: rgb(40, 48, 70);
+   border-bottom-right-radius: 15px;
+   border-top-right-radius: 15px;
+   display: flex;
+   flex-direction: column;
+align-items: center;
+justify-content: center;
+   flex: 1;
+   height: 100%;
+}
+.testimonial_card_right p {
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+   margin-top: 5px;
+}
+
+ .starsRow{
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   flex-direction: row;
+   margin-bottom: 12px;
+ }
+
+ .testimonial_img_container{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+ }
+
+ .testimonial_img_container img{
+   width:inherit;
+   height:inherit;
+   border-radius: 50%;
+    
+}
+
+@media screen and (max-width: 500px) {
+ 
+  .testimonials{
+    display: none;
+  }
+ 
+}

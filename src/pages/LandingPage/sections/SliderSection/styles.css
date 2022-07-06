@@ -1,0 +1,30 @@
+.slide_container{
+    padding: 20px;
+    background: rgb(205, 205, 205);
+}
+.slide_content{
+    
+    display: flex;  
+    flex-direction: row;
+    background: rgb(205, 205, 205);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+@media screen and (max-width: 800px) {
+    .slide_content{
+        flex-direction: column;
+        overflow: scroll; 
+    }
+} 
+
+@media screen and (max-width: 500px) {
+    /* .assessmentCard{
+      display: none;
+    } */
+    .slide_container{
+      display: none;
+    }
+   
+  }

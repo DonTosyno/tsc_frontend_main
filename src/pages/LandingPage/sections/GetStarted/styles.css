@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Niconne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap');
+/* GETTING STARTED */
+:root {
+   --font_family_primary: 'Niconne', cursive;
+   --font_family_secondary: 'Lato', sans-serif;
+   --font_family_main:'Montserrat', sans-serif;
+   --def: #96B7C4; 	
+   --inv: #fff;
+  }
+  
+.get-started{  
+position: relative; 
+}
+.get-started_content{
+position: absolute;
+top: 220px;
+left: 150px;
+}
+@media screen and (max-width: 560px) {
+    .get-started_content{ 
+        left: 15px; 
+        }
+        .get-started_content_main .hidetext{
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .get-started_text > .get-started_text-mobile{
+            font-size: 14px;
+        }
+}
+@media screen and (max-height: 875px) {
+    .get-started_content{ 
+        top: 120px; 
+        }
+}
+
+@media screen and (max-height: 755px) {
+    .get-started_content{ 
+        top: 90px; 
+        }
+        .get-started_text{
+            display: none;
+        }
+}
+.get-started_content_main{
+    overflow: hidden;
+ 
+}
+.get-started_content h2{
+font-family: var(--font_family_main);
+font-size: 3.5em;
+color: #fff;
+text-transform: uppercase;
+position:relative;
+}
+.get-started_img{  
+    width: 100%;
+    height: 80vh;
+    object-fit: contain; 
+}
+
+.get-started_img img{  
+  width: inherit;
+  height: inherit; 
+}
+
+.get-started_text p{
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 35px;
+    font-family: var(--font_family_secondary);
+    width: 388px;
+    overflow: hidden;
+}
+
+/* GET STARTED BUTTON */
+.get-started_btn_container{
+ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+ .get-started_btn{
+    background:none;
+    color: var(--inv);
+    font-size: 1.6em;
+    font-weight: bold;
+    padding: 15px 10px;
+    border-radius: 8px;
+    border: 3px solid var(--inv);
+    transition: 0.5s ease;
+    margin-top: 40px;
+    font-family: var(--font_family_secondary);
+    width: 300px;
+    text-align: center; 
+    cursor: pointer;
+    outline: none;
+ }
+ .get-started_btn:hover{
+    background: var(--inv);
+    color: var(--def);
+    border: 3px solid var(--inv);
+  
+ }
+ .learn_more_link{
+    font-size: 1.4em;
+     color: #fff;
+     margin-top: 45px;
+     margin-left: 45px;
+     transition: 0.5 ease;
+ }
+
+ .learn_more_link:hover{
+  opacity: 0.77
+ }

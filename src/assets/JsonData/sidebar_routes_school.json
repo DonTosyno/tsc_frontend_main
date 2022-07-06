@@ -1,0 +1,23 @@
+[
+    {
+        "display_name": "Dashboard",
+        "route": "/school/home",
+        "icon": "bx bx-home"
+    },
+    {
+        "display_name": "Students",
+        "route": "/school/students",
+        "icon": "bx bx-user-pin"
+    },
+    {
+        "display_name": "Profile",
+        "route": "/school/profile",
+        "icon": "bx bx-user"
+    }, 
+  
+    {
+        "display_name": "Support",
+        "route": "/school/support",
+        "icon": "bx bx-list-ol"
+    }
+]

@@ -1,0 +1,156 @@
+.assessmentContainer {
+  margin: 20px 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+.assessmentCardContent {
+  width: 320px;
+}
+.assessmentCardContent h2 {
+  font-weight: bold;
+  font-size: 40px;
+  font-family: var(--font_family_secondary);
+  display: flex;
+  margin-left: -25px;
+  padding-bottom: 15px;
+}
+
+.assessmentCardContent h2 p {
+  padding-right: 10px;
+}
+
+.assessmentCardContent p {
+  font-size: 18px;
+  font-family: var(--font_family_main);
+  margin-top: 12px;
+}
+
+.explore_button {
+  background: var(--inv);
+  color: #000;
+  font-size: 1.4em;
+  border: 2px solid #000;
+  padding: 12px 10px;
+  border-radius: 10px;
+  margin-top: 70px;
+  width: 80%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: 0.5s ease;
+}
+
+.explore_button:hover{
+  background: #000;
+  color: var(--inv);
+  border: 2px solid var(--inv);
+  cursor: pointer;
+}
+
+.careers_card {
+  border: 2px solid;
+  position: relative;
+  top: -200px;
+  right: -50px;
+  border-radius: 10px;
+  width: 320px;
+  padding: 25px 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.single_career_card_container{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      flex-direction: column;
+    width: 100%;
+}
+.career_card_circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: none;
+  border: 2px solid;
+
+  /* position: absolute;
+    top: -50px;
+    left: -50px; */
+}
+
+.navbar_logo_plain {
+  width: inherit;
+  text-align: center;
+  margin-top: 20px;
+  object-fit: cover;
+}
+
+.navbar_logo_plain img {
+  width: 70%;
+}
+
+.single_career_card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: #000;
+    margin-top: 20px;
+    width: 90%;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.single_career_card_left h2{
+    color: #fff;
+    font-size: 15px;
+    font-family: var(--font_family_main);
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 6px;
+}
+
+.stars_container{
+    display: flex;
+    flex-direction: row;
+}
+
+.single_career_card_left p{
+     width: 20px;
+     height: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.check_circle{
+    width: 40px;
+    height: 40px;
+   font-weight: bold;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background: #fff;
+   border-radius: 50%;
+   padding: 4px;
+}
+
+@media screen and (max-width: 500px) {
+  /* .assessmentCard{
+    display: none;
+  } */
+  .careers_card{
+    display: none;
+  }
+  .assessmentContainer{
+    flex-direction: column;
+    margin: 30px;
+  }
+}

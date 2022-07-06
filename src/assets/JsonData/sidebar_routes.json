@@ -1,0 +1,33 @@
+[
+    {
+        "display_name": "Dashboard",
+        "route": "/dashboard/home",
+        "icon": "bx bx-home"
+    },
+    {
+        "display_name": "Students",
+        "route": "/dashboard/students",
+        "icon": "bx bx-user-pin"
+    },
+    {
+        "display_name": "Profile",
+        "route": "/dashboard/profile",
+        "icon": "bx bx-user"
+    },
+    {
+        "display_name": "Psychometric Test",
+        "route": "/dashboard/analytics",
+        "icon": "bx  bx-category-alt"
+    },
+    {
+        "display_name": "Results",
+        "route": "/dashboard/result",
+        "icon": "bx bx-right-indent"
+    },
+  
+    {
+        "display_name": "Support",
+        "route": "/dashboard/support",
+        "icon": "bx bx-list-ol"
+    }
+]

@@ -1,0 +1,63 @@
+div {
+  margin-top: 30px;
+}
+
+div {
+  margin-bottom: 40px;
+}
+
+container-blog {
+  margin-bottom: 0px;
+}
+
+container-blog2 {
+  margin-bottom: 40px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  margin-bottom: 5px;
+}
+
+container-blog1 {
+  margin-bottom: 10px;
+}
+
+container-tc {
+  margin-bottom: 40px;
+}
+
+header-text {
+  margin-bottom: 30px;
+  color: #000000;
+  font-weight: bold;
+  font-family: 'Autour One', serif;
+}
+
+#header-text {
+  font-family: 'Autour One', serif;
+}
+
+#subscribe {
+  margin-bottom: 10px;
+}
+
+.py-3 {
+  padding-top: 0px!important;
+  padding-bottom: 0px!important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #0c63e4;
+  background-color: #e7f1ff;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+}
+

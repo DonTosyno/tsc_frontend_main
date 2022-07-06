@@ -1,0 +1,100 @@
+.chatBox{
+    position: fixed;
+    bottom: 14px;
+    right: 20px;
+    z-index: 9000;
+}
+
+.chatboxImg{
+     opacity: 0.55;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #000;
+    border-radius: 15px;
+    padding: 10px;
+    width: 300px;
+    cursor: pointer;
+    transition: 0.44s ease;
+}
+
+.chatboxImg:hover{
+    opacity: 1;
+    transform: translate3d(0, -2px, 0);
+}
+
+.chatboxImg img{ 
+    height: 50px;
+    
+}
+
+ 
+.chatBox > .active{
+    border: 1px solid #fff;
+    width: 100%;
+    height: 400px;
+    transition: 0.33s ease;
+    animation: slideUpAnimation 1s ease;
+    background: #fafafa;
+    box-shadow: 3px 5px 6px 3px rgb(146, 146, 146);
+    border-radius: 15px;;
+}
+.chatBox .active form .form-group{
+    padding: 20px;
+    width: 300px;
+   
+} 
+.chatBox .active form .form-group h2{
+   font-size: 20px;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   font-weight: bold;
+}
+
+.chatBox .active form .form-group p{
+    font-size: 16px;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ 
+}
+
+.chatBox .active form .form-group textarea{
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 3px 1px 4px #ccc;
+    height: 100px;
+    outline: none;
+    padding: 10px;
+    
+}
+.chatBox > .inactive{
+   
+    width: 100%;
+    height: 400px;
+    transition: 0.33s ease;
+    animation: slideDownAnimation 1.44s ease;
+    opacity: 0;
+    display: none;
+}
+
+@keyframes slideUpAnimation {
+    0% {
+        transform: translate3d(0, 200px, 0);
+        height: 0;
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+        height: 400px;
+        opacity: 1;
+    }
+}
+
+@keyframes slideDownAnimation {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(0, 100px, 0);
+        opacity: 0;
+        display: none;
+    }
+}
