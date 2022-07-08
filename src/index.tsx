@@ -14,11 +14,11 @@ const rootElement = document.getElementById("root")!;
 const root = createRoot(rootElement);
 const store = createStore(rootReducer);
 root.render(
-  <Provider store={store}>
-    <CookiesProvider>
+  <CookiesProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </CookiesProvider>
-  </Provider>
+    </Provider>
+  </CookiesProvider>
 );
