@@ -19,6 +19,7 @@ function PsychTest() {
   const [startQuiz, setStartQuiz] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const accessToken = localStorage.getItem("accessToken");
   const [currentQuestionDetails, setCurrentQuestionDetails] = useState<CurrentQuestionInterface>({
       questionId: 0,
       questionText: '',
@@ -33,7 +34,7 @@ function PsychTest() {
     try {
       axios
         .get(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/`+accessToken,
           { withCredentials: true }
         )
         .then((res: any) => {

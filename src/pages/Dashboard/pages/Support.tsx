@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
   
 function Support() {
-
+  const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
   const location = useLocation();
   const notifyMsg = (msg: string) => toast(msg);
@@ -15,7 +15,7 @@ function Support() {
     try {
       axios
         .post(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/counselling`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/counselling/`+accessToken,
           {},
           { withCredentials: true }
         )

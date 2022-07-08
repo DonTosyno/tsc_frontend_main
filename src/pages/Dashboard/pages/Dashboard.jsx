@@ -23,6 +23,7 @@ const TOTAL_TEST_QUESTIONS = 48;
 const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const accessToken = localStorage.getItem("accessToken");
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
   const profileBar = {
     width: 250,
@@ -139,7 +140,7 @@ const Dashboard = () => {
       try {
         axios
           .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
             { withCredentials: true }
           )
           .then((res) => {
@@ -185,7 +186,7 @@ const Dashboard = () => {
       try {
         axios
           .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
             { withCredentials: true }
           )
           .then((res) => {
@@ -267,7 +268,7 @@ const Dashboard = () => {
       try {
         axios
           .post(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getTemperamentData`,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getTemperamentData/${accessToken}`,
             {
               ...temperamentNames,
             },
@@ -338,7 +339,7 @@ const Dashboard = () => {
       try {
         axios
           .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getLatestActivity`,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getLatestActivity/${accessToken}`,
             { withCredentials: true }
           )
           .then((res) => {

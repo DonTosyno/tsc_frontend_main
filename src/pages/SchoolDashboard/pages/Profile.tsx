@@ -18,6 +18,7 @@ function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
   const profilePicRef = React.useRef<HTMLInputElement>(null);
+  const accessToken = localStorage.getItem("accessToken");
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [uploadedImg, setUploadedImg] = useState({
     image: {
@@ -39,7 +40,7 @@ function Profile() {
     try {
       axios
         .get(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/sessions/school/me`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/sessions/school/me/`+ accessToken,
           { withCredentials: true }
         )
         .then((res: any) => {
@@ -90,7 +91,7 @@ function Profile() {
     try {
       axios
         .get(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/school/upload`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/school/upload/` + accessToken,
           { withCredentials: true }
         )
         .then((res: any) => {
@@ -154,7 +155,7 @@ function Profile() {
     try {
       axios
         .post(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/school/upload`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/school/upload/`+ accessToken,
           uploadData,
           { withCredentials: true }
         )

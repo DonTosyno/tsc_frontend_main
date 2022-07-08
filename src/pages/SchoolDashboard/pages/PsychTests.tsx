@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import SliderSection from "../../../components/Dashboard/SliderSection";
 import SampleTestModal from "../../../components/Dashboard/SampleTestModal";
+
 interface QuizProps {
   setStartQuiz: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -19,6 +20,7 @@ function PsychTest() {
   const [startQuiz, setStartQuiz] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const accessToken = localStorage.getItem("accessToken");
   const [currentQuestionDetails, setCurrentQuestionDetails] = useState<CurrentQuestionInterface>({
       questionId: 0,
       questionText: '',
@@ -33,7 +35,7 @@ function PsychTest() {
     try {
       axios
         .get(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`+accessToken,
           { withCredentials: true }
         )
         .then((res: any) => {

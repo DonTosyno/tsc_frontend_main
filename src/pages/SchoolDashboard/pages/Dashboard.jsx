@@ -23,6 +23,7 @@ const TOTAL_TEST_QUESTIONS = 48;
 const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const accessToken = localStorage.getItem("accessToken");
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
   const profileBar = {
     width: 250,
@@ -64,17 +65,7 @@ const Dashboard = () => {
       date: "$900",
       status: "shipping",
     },
-  ]);
-  const [isTestCompleted, setIsTestCompleted] = useState(false);
-  const [temperamentNames, setTemperamentNames] = useState({
-    firstTemperament: "",
-    secondTemperament: "",
-    thirdTemperament: "",
-  });
-  const [testResultControls, setTestResultControls] = useState("");
-  const [temperamentOneData, setTemperamentOneData] = useState({});
-  const [temperamentTwoData, setTemperamentTwoData] = useState({});
-  const [temperamentThreeData, setTemperamentThreeData] = useState({});
+  ]); 
   const [schoolDashboardDetails, setSchoolDashboardDetails] = useState([
     0,
     0,
@@ -83,50 +74,8 @@ const Dashboard = () => {
   ]);
   const [finalTestResults, setFinalTestResults] = useState([
     10, 10, 10, 10, 10, 10,
-  ]);
-  const [psychQuestions, setPsychQuestions] = useState([]);
-  const [progressBar, setProgressBar] = useState({
-    width: 450,
-    percent: 0.5,
-  });
-
-  // CHART OPTIONS
-  const chartOptions = {
-    series: [
-      {
-        name: "Temperament Score",
-        data: [...finalTestResults],
-      },
-    ],
-    options: {
-      color: ["#6ab04c"],
-      chart: {
-        background: "transparent",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      xaxis: {
-        categories: [
-          "Realistic",
-          "Investigative",
-          "Artistic",
-          "Social",
-          "Enterprising",
-          "Conventional",
-        ],
-      },
-      legend: {
-        position: "top",
-      },
-      grid: {
-        show: false,
-      },
-    },
-  };
+  ]);  
+ 
   const searchCareer = (searchValue) => {
     const newWindow = window.open(
       "https://www.bing.com/search?q=" + searchValue,
@@ -141,7 +90,7 @@ const Dashboard = () => {
       try {
         axios
           .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/school/getSchoolDashboardDetails`,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/school/getSchoolDashboardDetails/${accessToken}`,
             { withCredentials: true }
           )
           .then((res) => {
@@ -187,7 +136,7 @@ const Dashboard = () => {
       try {
         axios
           .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getLatestSchoolActivity`,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getLatestSchoolActivity/${accessToken}`,
             { withCredentials: true }
           )
           .then((res) => {

@@ -69,6 +69,7 @@ function SampleTestModal({
   refresh,
 }: NavbarProps) {
   const TOTAL_QUESTION_LENGTH = 48;
+  const accessToken = localStorage.getItem("accessToken");
   const [isTestStarted, setIsTestStarted] = useState(true);
   const [isTestFinished, setIsTestFinished] = useState(false);
   const [nextQuestionAllowedToSubmit, setNextQuestionAllowedToSubmit] =
@@ -128,7 +129,7 @@ function SampleTestModal({
     try {
       axios
         .post(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/submitTest`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/submitTest/`+accessToken,
           {},
           { withCredentials: true }
         )
@@ -178,7 +179,7 @@ function SampleTestModal({
     try {
       axios
         .get(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/`+accessToken,
           { withCredentials: true }
         )
         .then((res: any) => {
@@ -322,7 +323,7 @@ function SampleTestModal({
         try {
           axios
             .post(
-              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/updateUserTest`,
+              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/updateUserTest/`+ accessToken,
               {
                 ...questionDetailsInState,
                 answer: value,

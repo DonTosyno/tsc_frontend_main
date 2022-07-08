@@ -29,6 +29,8 @@ function Dashboard({ props }: any) {
   // // console.log("props");
   // // console.log(props);
   const themeReducer = useSelector((state: IRootState) => state.ThemeReducer);
+  const accessToken = localStorage.getItem("accessToken");
+  
   // // console.log(themeReducer);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -63,7 +65,7 @@ function Dashboard({ props }: any) {
     try {
       axios
         .get(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/student/upload`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/student/upload/${accessToken}`,
           { withCredentials: true }
         )
         .then((res) => {
@@ -126,7 +128,7 @@ function Dashboard({ props }: any) {
     try {
       axios
         .get(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/sessions/student/me`,
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/sessions/student/me/${accessToken}`,
           { withCredentials: true }
         )
         .then((res) => {

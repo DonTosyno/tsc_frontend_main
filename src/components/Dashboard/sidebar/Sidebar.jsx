@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 import './sidebar.css'
 
@@ -27,7 +28,13 @@ const SidebarItem = props => {
 const Sidebar = ({props}) => {
     // // console.log('props from sidebar');
     // // console.log(props)
+    const navigate = useNavigate()
     const activeItem = sidebar_items.findIndex(item => item.route === props.pathname)
+    const handleLogOut = () => {
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
+        navigate('/login')
+    }
     // // console.log(activeItem)
     return (
         <div className='sidebar'>
@@ -47,13 +54,13 @@ const Sidebar = ({props}) => {
                    )
                 ))
             }
-            <Link to="/">
+            <div onClick={() => handleLogOut()} style={{cursor: 'pointer'}}>
                         <SidebarItem
                             title={"Log out"}
                             icon={""}
                             active={false}
                         />
-                    </Link>
+                    </div>
         </div>
     )
 }

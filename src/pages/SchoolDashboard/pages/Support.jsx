@@ -12,7 +12,7 @@ const Support = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [studentsNeedingSupport, setStudentsNeedingSupport] = useState([{}]);
-
+  const accessToken = localStorage.getItem("accessToken");
   const customerTableHead = [
     "",
     "name",
@@ -41,7 +41,7 @@ const Support = () => {
       try {
         axios
           .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/school/counselling`,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/school/counselling/${accessToken}`,
             { withCredentials: true }
           )
           .then((res) => {

@@ -48,6 +48,8 @@ function LoginPage() {
   }},[])
   const handleCookie = (accessToken: string, refreshToken: string) => {
    
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
     setCookie("accessToken", accessToken, {
       maxAge: 900000,
       httpOnly: true, 

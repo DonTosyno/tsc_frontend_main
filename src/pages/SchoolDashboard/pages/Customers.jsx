@@ -13,6 +13,7 @@ import  SingleStudentModal  from '../components/SingleStudentModal'
 const Customers = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const accessToken = localStorage.getItem("accessToken");
     const [students , setStudents] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [currentStudent, setCurrentStudent] = useState({});
@@ -26,26 +27,26 @@ const Customers = () => {
         'Counselling Status',
         'Completed Test'
     ]
-    const renderHead = (item, index) => <th key={index}>{item}</th>
+    // const renderHead = (item, index) => <th key={index}>{item}</th>
 
-const renderBody = (item, index) => (
-    <tr key={index}>
-        <td>{item.id}</td>
-        <td>{item.name}</td>
-        <td>{item.email}</td>
-        <td>{item.phone}</td>
-        <td>{item.total_orders}</td>
-        <td>{item.total_spend}</td>
-        <td>{item.location}</td>
-    </tr>
-);
+// const renderBody = (item, index) => (
+//     <tr key={index}>
+//         <td>{item.id}</td>
+//         <td>{item.name}</td>
+//         <td>{item.email}</td>
+//         <td>{item.phone}</td>
+//         <td>{item.total_orders}</td>
+//         <td>{item.total_spend}</td>
+//         <td>{item.location}</td>
+//     </tr>
+// );
 
 useEffect(() => {
     const getAllStudents = async () => {
       try {
         axios
           .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/school/getAllStudents`,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/school/getAllStudents/${accessToken}`,
             { withCredentials: true }
           )
           .then((res) => {

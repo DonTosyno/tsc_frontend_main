@@ -11,7 +11,7 @@ import ThemeMenu from '../thememenu/ThemeMenu'
 import notifications from '../../../assets/JsonData/notification.json'
 
 import user_image from '../../../assets/images/tuat.png'
-
+import defaultImg from '../../../assets/img/default.png'
 import user_menu from '../../../assets/JsonData/user_menus.json'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";

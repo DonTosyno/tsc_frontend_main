@@ -53,17 +53,17 @@ const topCustomers = {
     ]
 }
 
-const renderCusomerHead = (item, index) => (
-    <th key={index}>{item}</th>
-)
+// const renderCusomerHead = (item, index) => (
+//     <th key={index}>{item}</th>
+// )
 
-const renderCusomerBody = (item, index) => (
-    <tr key={index}>
-        <td>{item.username}</td>
-        <td>{item.order}</td>
-        <td>{item.price}</td>
-    </tr>
-)
+// const renderCusomerBody = (item, index) => (
+//     <tr key={index}>
+//         <td>{item.username}</td>
+//         <td>{item.order}</td>
+//         <td>{item.price}</td>
+//     </tr>
+// )
 
 const latestOrders = {
     header: [
@@ -140,6 +140,7 @@ const Results = () => {
     const themeReducer = useSelector(state => state.ThemeReducer.mode)
       const navigate = useNavigate();
   const location = useLocation();
+  const accessToken = localStorage.getItem("accessToken");
   const [psychQuestions, setPsychQuestions] = React.useState([]);
     const [finalTestResults, setFinalTestResults] = React.useState([14, 23, 21, 17, 15, 10])
     useEffect(() => {
@@ -147,7 +148,7 @@ const Results = () => {
             try {
               axios
                 .get(
-                  `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+                  `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
                   { withCredentials: true }
                 )
                 .then((res) => {
@@ -190,7 +191,7 @@ const Results = () => {
             try {
               axios
                 .get(
-                  `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+                  `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
                   { withCredentials: true }
                 )
                 .then((res) => {

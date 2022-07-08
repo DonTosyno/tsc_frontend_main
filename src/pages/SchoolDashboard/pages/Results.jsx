@@ -138,6 +138,7 @@ const renderOrderBody = (item, index) => (
 const Results = () => {
     const TOTAL_TEST_QUESTIONS = 48;
     const themeReducer = useSelector(state => state.ThemeReducer.mode)
+    const accessToken = localStorage.getItem("accessToken");
       const navigate = useNavigate();
   const location = useLocation();
   const [psychQuestions, setPsychQuestions] = React.useState([]);
@@ -147,7 +148,7 @@ const Results = () => {
             try {
               axios
                 .get(
-                  `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+                  `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
                   { withCredentials: true }
                 )
                 .then((res) => {
@@ -190,7 +191,7 @@ const Results = () => {
             try {
               axios
                 .get(
-                  `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult`,
+                  `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
                   { withCredentials: true }
                 )
                 .then((res) => {

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 function SingleStudentModal({ currentStudent, setShowModal }) {
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem("accessToken");
     const location = useLocation();
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [uploadedImg, setUploadedImg] = useState({
@@ -48,7 +49,7 @@ useEffect(() => {
             try {
                 axios
                   .get(
-                    `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/school/getStudentProfilePic/${currentStudent.studentId}`,
+                    `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/school/getStudentProfilePic/${currentStudent.studentId}/${accessToken}`,
                     { withCredentials: true }
                   )
                   .then((res) => {
