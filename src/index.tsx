@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import rootReducer from './redux/reducers'
 import { legacy_createStore as createStore} from 'redux'
-
+import { CookiesProvider } from "react-cookie";
 import { Provider } from 'react-redux'
 import './assets/boxicons-2.0.7/css/boxicons.min.css'
 import './assets/css/grid.css'
@@ -18,7 +18,9 @@ const store = createStore(
 root.render(
   <Provider store={store}>
   <BrowserRouter>
+  <CookiesProvider>
     <App />
+  </CookiesProvider>
   </BrowserRouter>
   </Provider>
 );

@@ -12,7 +12,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import qs from "query-string";
-
+import { useCookies } from "react-cookie";
 function LoginPage() {
   const navigate = useNavigate();
   let loginRef = useRef(null);
@@ -22,6 +22,7 @@ function LoginPage() {
   const [formErrorMessage, setFormErrorMessage] = useState("");
   const [userType, setUserType] = useState("Student");
   const [loading, setLoading] = useState(false);
+    const [cookies, setCookie] = useCookies(["accessToken", "refreshToken"]);
   const createSessionSchema = object({
     email: string({
       required_error: "Email is required",
@@ -45,7 +46,23 @@ function LoginPage() {
     if (queryParam && queryParam.email) {
       notifyMsg('Email Verification Successful. Please Log In')
   }},[])
- 
+  const handleCookie = (accessToken: string, refreshToken: string) => {
+   
+    setCookie("accessToken", accessToken, {
+      maxAge: 900000,
+      httpOnly: true, 
+      path: "/",
+      sameSite: "strict",
+      secure: false,
+    });
+    setCookie("refreshToken", refreshToken, {
+      maxAge: 900000,
+      httpOnly: true, 
+      path: "/",
+      sameSite: "strict",
+      secure: false,
+    });
+  }
 
   const loginUser = (data: any) => {
     // console.log(data);
@@ -83,8 +100,10 @@ function LoginPage() {
           ) {
             setFormErrorMessage(res.data.message);
           } else {
-            
+            // SET COOKIES
+            handleCookie(res.data.accessToken,res.data.accessToken);
             if (res.data.userType === "STUDENT") {
+              
               navigate("/dashboard/home");
             } else if (res.data.userType === "SCHOOL") {
               navigate("/school/home");
