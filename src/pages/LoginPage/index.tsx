@@ -101,6 +101,8 @@ function LoginPage() {
             setFormErrorMessage(res.data.message);
           } else {
             // SET COOKIES
+            console.log('Tokens')
+            console.log(res.data.accessToken,res.data.accessToken)
             handleCookie(res.data.accessToken,res.data.accessToken);
             if (res.data.userType === "STUDENT") {
               
