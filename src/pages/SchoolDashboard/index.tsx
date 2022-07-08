@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./styles.css";
 import logoMainImg from "../../assets/icons/TSC-plain.png";
+import defaultUrl from "../../assets/img/default.png";
 import gsap, { Power3 } from "gsap";
 import { useForm } from "react-hook-form";
 import { object, string } from "zod";
@@ -83,7 +84,13 @@ function Dashboard({ props }: any) {
             // console.log("Success");
             // console.log(res.data);
            if (res.data.profilePicture){
-            const profilePicBuffer = res.data.profilePicture.data.data;
+            if (res.data.profilePicture === 'null'){
+              setUserData({
+                ...userData,
+                profilePictureImgUrl: defaultUrl,
+              });
+            } else {
+                  const profilePicBuffer = res.data.profilePicture.data.data;
             const base64String = Buffer.from(profilePicBuffer).toString('base64');
             const formattedString = `data:image/png;base64,${base64String}`;
             // console.log('formattedString');
@@ -94,6 +101,8 @@ function Dashboard({ props }: any) {
             }
             // console.log(finalData)
             setUserData(finalData);
+            }
+        
            }
            
             if (res.data.statusCode === 403) {
