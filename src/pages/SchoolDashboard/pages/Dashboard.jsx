@@ -146,7 +146,8 @@ const Dashboard = () => {
           )
           .then((res) => {
             if (res.status === 403) {
-              navigate("/login");
+              console.log(res);
+              // navigate("/login");
             }
             if (
               res.data.statusCode === 409 ||
@@ -191,7 +192,8 @@ const Dashboard = () => {
           )
           .then((res) => {
             if (res.status === 403) {
-              navigate("/login");
+              console.log(res);
+              // navigate("/login");
             }
             if (
               res.data.statusCode === 409 ||

@@ -70,7 +70,8 @@ function Dashboard({ props }: any) {
           // console.log(res);
 
           if (res.status === 403) {
-            navigate("/login");
+              console.log(res);
+            // navigate("/login");
           }
           if (
             res.data.statusCode === 409 ||
@@ -106,7 +107,8 @@ function Dashboard({ props }: any) {
            }
            
             if (res.data.statusCode === 403) {
-              navigate("/login");
+              console.log(res);
+              // navigate("/login");
             } else {
               // setUserData(data);
               if (location.pathname === '/dashboard/' || location.pathname === '/dashboard') {
@@ -131,7 +133,8 @@ function Dashboard({ props }: any) {
           // console.log(res);
 
           if (res.status === 403) {
-            navigate("/login");
+            console.log(res);
+            // navigate("/login");
           }
           if (
             res.data.statusCode === 409 ||
@@ -152,7 +155,8 @@ function Dashboard({ props }: any) {
             };
             
             if (res.data.statusCode === 403) {
-              navigate("/login");
+              console.log(res);
+              // navigate("/login");
             } else {
               // setUserData(data);
               getUserProfilePicture(data)
