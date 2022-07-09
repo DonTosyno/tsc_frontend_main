@@ -114,13 +114,15 @@ function ContactUs() {
           <div className="col-md-6">
             <p style={{ marginBottom: "5px" }}>
               <i className="fa fa-phone-square"></i>
-              <strong>&nbsp;Phone Number:</strong>&nbsp;+234(0)
+              <strong>&nbsp;Phone Number:</strong>&nbsp; +234 907 516 6404
             </p>
             <p>
               <i className="fa fa-envelope-square"></i>
-              <strong>&nbsp;Email:</strong>&nbsp;thescholarscareers@gmail.com 
-
-
+              <strong>&nbsp;Email:</strong>&nbsp;thescholarscareers@gmail.com  
+            </p>
+            <p>
+              <i className="fa fa-envelope"></i>
+              <strong>&nbsp;LinkedIn:</strong>&nbsp;<a target="__blank" href="https://www.linkedin.com/in/the-scholars-career-tsc-138843215">The Scholars Careers</a>
             </p>
             <p>
               If you are thinking of using our career test or experiencing any

@@ -26,7 +26,7 @@ function LandingPage() {
 setOverflowHiddenState={setOverflowHiddenState} />
       <AssessmentSection />
       <SliderSection />
-      <LearnMoreSection />
+      {/* <LearnMoreSection /> */}
       <WhyTrustUsSection />
       <LearnMoreSsecondSection />
       <Testimonials />

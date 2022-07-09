@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import "./styles.css";
 import logoMainImg from "../../assets/icons/TSC-plain.png";
 import gsap, { Power3 } from "gsap";
-import face8 from "../../assets/img/stock_images/face8.jpg";
+import face9 from "../../assets/img/stock_images/face9.jpg";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -240,12 +240,12 @@ function SignUp() {
           className="containerLeft signUpLeft"
           style={{
             textAlign: "right",
-            width: "600px",
-            flex: "0.5",
+            width: "600px", 
+            flex: "0.2",
             borderRadius: "10px",
           }}
         >
-          <img src={face8} alt="logo" className="face8" width="100%" />
+          <img src={face9} alt="logo" className="face9 signUpImage" />
         </div>
         <div className="signUpContainer" ref={loginRef}>
           <div className="loginContainerImg">

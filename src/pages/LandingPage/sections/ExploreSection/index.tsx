@@ -8,7 +8,7 @@ import face4 from "../../../../assets/img/stock_images/face4.jpg";
 import face5 from "../../../../assets/img/stock_images/face5.jpg";
 import face6 from "../../../../assets/img/stock_images/face6.jpg";
 import face7 from "../../../../assets/img/stock_images/face7.jpg";
-import face8 from "../../../../assets/img/stock_images/face8.jpg"; 
+import face9 from "../../../../assets/img/stock_images/face9.jpg"; 
  import Aos from "aos";
 import "aos/dist/aos.css";
 function ExploreSection() {
@@ -21,7 +21,7 @@ function ExploreSection() {
   return (
     <div className="explore_section_container" data-aos="fade-up">
       <div className="explore_section_div" data-aos="fade-right">
-        {[ face2, face3,  face5,  face8].map(
+        {[ face2, face3,  face5,  face9].map(
           (item, index) => {
             return (
               <img

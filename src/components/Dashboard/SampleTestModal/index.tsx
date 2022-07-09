@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import face8 from "../../../assets/img/stock_images/face8.jpg";
+import face8 from "../../../assets/img/stock_images/face9.jpg";
 import logoMainImg from "../../../assets/icons/TSC-plain.png";
 import { Icon } from "ts-react-feather-icons";
 import axios from "axios";

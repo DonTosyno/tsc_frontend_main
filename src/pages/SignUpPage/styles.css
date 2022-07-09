@@ -1,6 +1,6 @@
 .signUpPage{
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding-top: 20px;
     display: flex;
     flex-direction: row;
@@ -9,7 +9,9 @@
      background: linear-gradient(to left, rgb(159, 147, 147), #333);
     
 }
-
+.signUpImage{
+    height: 70%;
+}
 .signUpLeft{ 
     animation: animateSignUpLeft 1s;
 }
@@ -17,10 +19,10 @@
     max-height: 800px;
 } */
 .signUpContainer{
-  height: 105%;  
+  height: 90%;  
   width: 45%;
   min-width: 500px;
-  /* min-height: 950px; */
+  min-height: 900px;
   max-width: 800px;
    background-color: #000;
     display: flex;
@@ -28,10 +30,10 @@
     align-items: center;
     border-radius: 15px;
     padding: 0;
-    /* overflow: scroll; */
+    overflow: auto;
 }
 .signUpContainer .signUpContainerChild {
-
+   
     width: 80%;
     
 }
