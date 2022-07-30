@@ -12,6 +12,9 @@ function Support() {
   const notifyMsg = (msg: string) => toast(msg);
   const requestCounsellorSupport = async () => {
     // console.log('working')
+    if (!accessToken) {
+      navigate("/login");
+    }
     try {
       axios
         .post(

@@ -9,7 +9,7 @@ const StatusCard = props => {
                 <i className={props.icon}></i>
             </div>
             <div className="status-card__info">
-                <h4>{props.count}</h4>
+                <h4 style={{fontSize: "18px"}}>{props.count}</h4>
                 <span>{props.title}</span>
             </div>
         </div>

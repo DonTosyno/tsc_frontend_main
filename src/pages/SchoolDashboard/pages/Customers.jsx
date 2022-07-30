@@ -14,6 +14,7 @@ const Customers = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const accessToken = localStorage.getItem("accessToken");
+     
     const [students , setStudents] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [currentStudent, setCurrentStudent] = useState({});
@@ -43,6 +44,9 @@ const Customers = () => {
 
 useEffect(() => {
     const getAllStudents = async () => {
+      if (!accessToken) {
+        navigate("/login");
+      }
       try {
         axios
           .get(

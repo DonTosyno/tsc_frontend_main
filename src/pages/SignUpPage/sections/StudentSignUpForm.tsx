@@ -191,7 +191,7 @@ function StudentSignUpForm({ handleDateChange, startDate }: ISignUpInterface) {
 
         
       <FormControl
-        fullWidth
+        fullWidth 
         style={{
           background: "#FAFAFA",
           width: "100%",
@@ -225,7 +225,7 @@ function StudentSignUpForm({ handleDateChange, startDate }: ISignUpInterface) {
                 )
               })
            }
-          <MenuItem value={"Sample School A"}>Sample School A</MenuItem>
+          {/* <MenuItem value={"Sample School A"}>Sample School A</MenuItem> */}
         </Select>
       </FormControl>
       {schoolInputError && (

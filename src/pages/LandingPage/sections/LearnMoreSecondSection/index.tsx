@@ -27,7 +27,7 @@ function LearnMoreSsecondSection() {
         need
       </p>
 
-      <Link to="/about" className="learn_more_second_button">Get Started Now</Link>
+      <Link to="/signup" className="learn_more_second_button">Get Started Now</Link>
 
       <div className="learn_more_second_img bottom">
         <img src={logoImg} alt="logo" />

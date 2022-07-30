@@ -50,6 +50,7 @@ function LoginPage() {
    
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("userType",userType);
     setCookie("accessToken", accessToken, {
       maxAge: 900000,
       httpOnly: true, 

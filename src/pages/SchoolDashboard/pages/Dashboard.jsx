@@ -24,13 +24,16 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    navigate("/login");
+  }
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
   const profileBar = {
     width: 250,
     percent: 0.8,
   };
   const latestOrdersHead = {
-    header: ["UserId", "TypeOfActivity", "date", "time", "status"],
+    header: [  "TypeOfActivity", "date", "time", "status"],
   };
   const orderStatus = {
     shipping: "primary",
@@ -41,7 +44,7 @@ const Dashboard = () => {
   const renderOrderHead = (item, index) => <th key={index}>{item}</th>;
   const renderOrderBody = (item, index) => (
     <tr key={index}>
-      <td>{item.id}</td>
+      {/* <td>{item.id}</td> */}
       <td>{item.user}</td>
       <td>{item.price}</td>
       <td>{item.date}</td>
@@ -59,7 +62,7 @@ const Dashboard = () => {
   const date = new Date().toLocaleDateString("en-US", options);
   const [latestOrdersBody, setLatestOrdersBody] = useState([
     {
-      id: "#OD1711",
+      // id: "#OD1711",
       user: "john doe",
       price: "17 Jun 2021",
       date: "$900",
@@ -157,7 +160,7 @@ const Dashboard = () => {
               const latestActivity = res.data.latestActivity;
               const latestActivityBody = latestActivity.map((item, index) => {
                 return {
-                  id: item.userId,
+                  // id: item.userId,
                   user: item.typeOfLastActivity,
                   price: new Date(item.dateOfLastActivity).toLocaleDateString(
                     "en-US",
@@ -239,7 +242,7 @@ const Dashboard = () => {
                 cursor: "pointer",
               }}
             >
-              Please complete test to view.
+              .
             </div>
           )}
           <div className="card full-height">
@@ -282,7 +285,7 @@ const Dashboard = () => {
               {latestOrdersBody.map((item, index) => {
                 return (
                   <tr key={index}>
-                    <td>{item.id.slice(18)}</td>
+                    {/* <td>{item.id.slice(18)}</td> */}
                     <td>{item.user}</td>
                     <td>{item.price}</td>
                     <td>{item.date}</td>

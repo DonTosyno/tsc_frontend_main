@@ -85,8 +85,8 @@ const Dashboard = () => {
   ]);
   const [psychQuestions, setPsychQuestions] = useState([]);
   const [progressBar, setProgressBar] = useState({
-    width: 450,
-    percent: 0.5,
+    width: 250,
+    percent: 0.2,
   });
 
   // CHART OPTIONS
@@ -137,6 +137,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getDashboardDetails = async () => {
+        if (!accessToken) {
+        navigate("/login");
+      }
       try {
         axios
           .get(
@@ -395,7 +398,7 @@ const Dashboard = () => {
       <h2 className="page-header">Dashboard</h2>
       <div className="row dashboardCardsContainer">
         <div className="col-6">
-          <div className="row">
+          <div className="row" style={{width: '100%'}}>
             <div
             className="dashboardCardsMain" 
             >
@@ -429,7 +432,7 @@ const Dashboard = () => {
                       cursor: "pointer",
                     }}
                   >
-                    Please complete test to view.
+                    
                   </div> 
                 )}
                 <StatusCard
@@ -467,7 +470,7 @@ const Dashboard = () => {
                 cursor: "pointer",
               }}
             >
-              Please complete test to view.
+              .
             </div>
           )}
           <div className="card full-height">
@@ -490,7 +493,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <div className="col-6" style={{ position: "relative", zIndex: "9000" }}>
+        <div className="col-12" style={{ position: "relative", zIndex: "9000" }}>
           {!isTestCompleted &&  (
             <div
               style={{
@@ -509,7 +512,7 @@ const Dashboard = () => {
                 cursor: "pointer",
               }}
             >
-              Please complete test to view.
+              .
             </div>
           )}
           <div className="card">
@@ -684,7 +687,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="col-6">
+        {/* <div className="col-6">
           <div className="card">
             <div className="card__header">
               <h3>latest activity</h3>
@@ -696,7 +699,7 @@ const Dashboard = () => {
                 bodyData={latestOrdersBody}
                 limit={100}
                 renderBody={(item, index) => renderOrderBody(item, index)}
-              /> */}
+              /> 
               {
                 latestOrdersHead.header.map((item, index) => (
                   renderOrderHead(item, index)
@@ -719,11 +722,9 @@ const Dashboard = () => {
                 );
               })}
             </div>
-            {/* <div className="card__footer">
-              <Link to="/">view all</Link>
-            </div> */}
+          
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

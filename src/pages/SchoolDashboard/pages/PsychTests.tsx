@@ -20,7 +20,7 @@ function PsychTest() {
   const [startQuiz, setStartQuiz] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  const accessToken = localStorage.getItem("accessToken");
+
   const [currentQuestionDetails, setCurrentQuestionDetails] = useState<CurrentQuestionInterface>({
       questionId: 0,
       questionText: '',
@@ -31,7 +31,12 @@ function PsychTest() {
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
+ 
   const getUserResult = async () => {
+    if (!accessToken) {
+      navigate("/login");
+    }
     try {
       axios
         .get(

@@ -13,6 +13,7 @@ const Support = () => {
   const location = useLocation();
   const [studentsNeedingSupport, setStudentsNeedingSupport] = useState([{}]);
   const accessToken = localStorage.getItem("accessToken");
+ 
   const customerTableHead = [
     "",
     "name",
@@ -38,6 +39,9 @@ const Support = () => {
   // );
   useEffect(() => {
     const getCounsellorSupportStudents = async () => {
+       if (!accessToken) {
+    navigate("/login");
+  }
       try {
         axios
           .get(

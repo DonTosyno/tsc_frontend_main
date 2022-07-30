@@ -19,10 +19,10 @@ function WhyTrustUsSection() {
       <h1> Why trust us? </h1>
       <div className="why_trust_us_container">
         <div className="why_trust_us_card" data-aos="fade-right">
-          <h2>Built by data scientists and expert psychologists</h2>
+          <h2>Built by experienced professionals</h2>
           <p>
             Our questions and algorithms are unique to us and are built on
-            decades of study in vocational testing
+            long periods of study in vocational testing
           </p>
         </div>
         <div className="why_trust_us_card_img" data-aos="fade-up">
@@ -31,7 +31,7 @@ function WhyTrustUsSection() {
         <div className="why_trust_us_card" data-aos="fade-left">
           <h2>Your data is safe with us</h2>
           <p>
-            We firmly believe that yoy own your data, not us. We never sell your
+            We firmly believe that you own your data, not us. We never sell your
             personal data to third parties
           </p>
         </div>
@@ -39,10 +39,10 @@ function WhyTrustUsSection() {
           <img src={shapeTwo} alt="logo" />
         </div>
         <div className="why_trust_us_card" data-aos="fade-up">
-          <h2>Over 400 million questions to be answered</h2>
+          <h2>Personality driven questions to aid your career decisions</h2>
           <p>
             The world of work changes in real time — and so do our analytics.
-            Our algortihms continuously improve with millions of daily data
+            Our questions improve with millions of daily data
             points to give you real-time accuracy
           </p>
         </div>

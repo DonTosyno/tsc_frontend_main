@@ -1,6 +1,6 @@
 import React , {useRef, useEffect, useState} from "react";
-import "./styles.css";
-import { Link } from "react-router-dom";
+import "./styles.css"; 
+import { Link,useNavigate } from "react-router-dom";
 import logoImg from "../../../../assets/icons/TSC.png";
 import { Icon } from "ts-react-feather-icons";
 import gsap, {Power3} from "gsap"; 
@@ -11,11 +11,13 @@ function Navbar() {
   let navbarLogoRef = useRef(null);
   let navLinksRef = useRef(null);
   let navLinksRightRef = useRef(null) 
- 
+  const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
+  const userType = localStorage.getItem("userType");
   return (
     <div className="navbar_main" ref={navbar}>
       <div className="navbar_container">
-        <div className="navbar_logo" ref={navbarLogoRef}>
+        <div className="navbar_logo" ref={navbarLogoRef} onClick={() => navigate('/')}>
           <img src={logoImg} alt="logo" />
         </div>
         <nav ref={navLinksRef}>
@@ -43,9 +45,13 @@ function Navbar() {
       </div>
 
       <ul className="nav-login_div" ref={navLinksRightRef}>
-        <Link to="/login" className="navbar_links nav-nav_links">
+      { !accessToken ?
+          <Link to="/login" className="navbar_links nav-nav_links">
           Log In
+        </Link> : <Link to={userType === "Student" ? "/dashboard/home": "/school/home" }className="navbar_links nav-nav_links">
+          Dashboard
         </Link>
+}
        </ul>
       {/* Only shows for mobile screen */}
       <div className="hamburger-icon" onClick={() => setShowNavDropdown(!showNavDropdown)}>

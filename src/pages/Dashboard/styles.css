@@ -17,7 +17,7 @@
 .dashboardCardsMain { 
   width: 100%;
   display: flex;
-  justify-items:  space-around ;
+  justify-items:  space-between ;
 }
 
 .dashboardCardsMain > * {

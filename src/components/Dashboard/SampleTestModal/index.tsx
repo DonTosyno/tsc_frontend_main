@@ -504,6 +504,9 @@ function SampleTestModal({
               >
                 <div className="questionOptionsBox">
                   <p>{questionDetailsInState.questionText}</p>
+                 {
+                 questionsInModal.length <  TOTAL_QUESTION_LENGTH && (
+<div>
                   <div
                     className="questionOptions"
                     onClick={() => {
@@ -669,6 +672,11 @@ function SampleTestModal({
                     />
                     <label> {optionsObject.optionE.text}</label>
                   </div>
+                  
+
+                  </div>
+                  )
+                 }  
                 </div>
                 <div className="sampleQuestionButtonControls">
                   {questionsInModal.length > 0 &&
@@ -684,7 +692,7 @@ function SampleTestModal({
                       </button>
                     )}
 
-                 { questionsInModal.length <  48 && <button
+                 { questionsInModal.length <  TOTAL_QUESTION_LENGTH && <button
                     className="login_submit_button"
                     onClick={() => {
                       handleSubmitQuestion();
@@ -694,7 +702,7 @@ function SampleTestModal({
                     Next
                   </button>}
 
-                  {questionsInModal.length >= 48 && (
+                  {questionsInModal.length >= TOTAL_QUESTION_LENGTH && (
                     <button
                       className="login_submit_button"
                       onClick={() => {
@@ -722,9 +730,9 @@ function SampleTestModal({
             }
       
           >
-            <div className="containerLeft" data-aos="fade-right">
+           { !isTestFinished && <div className="containerLeft" data-aos="fade-right">
               <img src={face8} alt="face" />
-            </div>
+            </div>}
             <div className="containerRight" style={{ flex: "1" }}>
               <div
                 className="explore_section_right"
@@ -754,7 +762,7 @@ function SampleTestModal({
                   ) : (
                     <h2>Test Completed</h2>
                   )}
-                  <p style={{ width: "80%" }}>
+                  <p style={{ width: "100%", marginLeft: "-30px" }}>
                     {isTestFinished
                       ? "You have Completed the Test."
                       : "Take the free assessment and uncover things you didn't know about yourself."}

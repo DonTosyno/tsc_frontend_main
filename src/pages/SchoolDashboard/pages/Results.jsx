@@ -138,13 +138,18 @@ const renderOrderBody = (item, index) => (
 const Results = () => {
     const TOTAL_TEST_QUESTIONS = 48;
     const themeReducer = useSelector(state => state.ThemeReducer.mode)
-    const accessToken = localStorage.getItem("accessToken");
+ 
       const navigate = useNavigate();
+         const accessToken = localStorage.getItem("accessToken");
+       
   const location = useLocation();
   const [psychQuestions, setPsychQuestions] = React.useState([]);
     const [finalTestResults, setFinalTestResults] = React.useState([14, 23, 21, 17, 15, 10])
     useEffect(() => {
         const getUserResult = async () => {
+          if (!accessToken) {
+            navigate("/login");
+          }
             try {
               axios
                 .get(
@@ -328,7 +333,7 @@ const chartOptions = {
                       cursor: 'pointer'
                     }}
                   >
-                    Please complete test to view.
+                    .
                   </div>
                 )}
                     <div className="card full-height" style={{maxHeight: '70vh'}}>
@@ -368,7 +373,7 @@ const chartOptions = {
                       cursor: 'pointer'
                     }}
                   >
-                    Please complete test to view.
+                    .
                   </div>
                 )}
                     <div className="card full-height">
@@ -407,7 +412,7 @@ const chartOptions = {
                       cursor: 'pointer'
                     }}
                   >
-                    Please complete test to view.
+                    .
                   </div>
                 )}
                     <div className="card">

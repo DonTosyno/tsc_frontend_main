@@ -60,7 +60,7 @@ const Topnav = ({userData}) => {
         <div className='topnav'>
             <div  className="topnav__search">
             <p onClick={() => navigate('/about')} style={{margin: '0 30px', cursor: 'pointer'}}>About</p>
-            <p onClick={() => navigate('/faq')} style={{margin: '0 30px', cursor: 'pointer'}}>Contact Us</p>
+            <p onClick={() => navigate('/contact')} style={{margin: '0 30px', cursor: 'pointer'}}>Contact Us</p>
                 {/* <input type="text" placeholder='Search here...' />
                 <i className='bx bx-search'></i> */}
             </div>

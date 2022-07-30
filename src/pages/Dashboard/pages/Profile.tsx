@@ -37,6 +37,9 @@ function Profile() {
     phoneNumber: "",
   });
   const getLoggedInUser = () => {
+    if (!accessToken) {
+      navigate("/login");
+    }
     try {
       axios
         .get(
@@ -333,7 +336,7 @@ function Profile() {
               </form>
             </div>
 
-            <div className="container_right_bottom">
+            {/* <div className="container_right_bottom">
               <h3>Notifications</h3>
 
               <form>
@@ -355,7 +358,7 @@ function Profile() {
                   </button>
                 </div>
               </form>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

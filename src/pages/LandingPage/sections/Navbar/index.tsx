@@ -16,7 +16,8 @@ function Navbar({setShowModal,setOverflowHiddenState}:NavbarProps) {
   let navbarLogoRef = useRef(null);
   let navLinksRef = useRef(null);
   let navLinksRightRef = useRef(null) 
- 
+  const accessToken = localStorage.getItem("accessToken");
+  const userType = localStorage.getItem("userType");
   return (
     <div className="navbar_main" ref={navbar}>
       <div className="navbar_container">
@@ -48,9 +49,13 @@ function Navbar({setShowModal,setOverflowHiddenState}:NavbarProps) {
       </div>
 
       <ul className="nav-login_div" ref={navLinksRightRef}>
-        <Link to="/login" className="navbar_links nav-nav_links">
+      { !accessToken ?
+          <Link to="/login" className="navbar_links nav-nav_links">
           Log In
+        </Link> : <Link to={userType === "Student" ? "/dashboard/home": "/school/home" }className="navbar_links nav-nav_links">
+          Dashboard
         </Link>
+}
         <p className="nav-take_test nav-nav_links" style={{marginTop: '12px'}} onClick={() => {setShowModal(true);setOverflowHiddenState(true) }}>Take the Free Test</p>
       </ul>
       {/* Only shows for mobile screen */}
@@ -83,9 +88,13 @@ function Navbar({setShowModal,setOverflowHiddenState}:NavbarProps) {
             </Link>
           </li>
           <li className="hamburger-icon-dropdown-item">
-            <Link to="/login" className="mobile-link">
-              Log In
-            </Link>
+          { !accessToken ?
+          <Link to="/login" className="navbar_links nav-nav_links">
+          Log In
+        </Link> : <Link to={userType === "Student" ? "/dashboard/home": "/school/home" }className="navbar_links nav-nav_links">
+          Dashboard
+        </Link>
+}
           </li>
         </ul>
       )}

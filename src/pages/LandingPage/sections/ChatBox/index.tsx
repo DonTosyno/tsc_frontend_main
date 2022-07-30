@@ -78,6 +78,9 @@ setMessage('')
       />
       <div className="chatBox">
         <div className={isChatBoxVisible ? "active" : "inactive"}>
+          <div className="chatBoxCloseBtn" onClick={() => setContentClassName('inactive')}>
+            <p>x</p>
+          </div>
           <form onSubmit={sendContactMail}>
             <div className="form-group">
               <h2>
@@ -125,7 +128,7 @@ setMessage('')
               className="login_submit_button"
               style={{
                 marginTop: "-10px",
-                marginLeft: "8px",
+                marginLeft: "15px",
                 textAlign: "center",
               }}
               type="submit"
@@ -141,7 +144,7 @@ setMessage('')
             )}
           </form>
         </div>
-        <div
+      {!isChatBoxVisible &&  <div
           className="chatboxImg"
           onClick={() => {
             // console.log(contentClassName);
@@ -154,7 +157,7 @@ setMessage('')
         >
           <Icon name="message-square" color="#fff" size={24} />
           <img src={logoMainImg} alt="chat-img" />
-        </div>
+        </div>}
       </div>
     </>
   );

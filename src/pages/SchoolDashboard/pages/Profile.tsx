@@ -19,6 +19,7 @@ function Profile() {
   const location = useLocation();
   const profilePicRef = React.useRef<HTMLInputElement>(null);
   const accessToken = localStorage.getItem("accessToken");
+
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [uploadedImg, setUploadedImg] = useState({
     image: {
@@ -37,6 +38,9 @@ function Profile() {
     schoolContactPhoneNumber: "",
   });
   const getLoggedInUser = () => {
+    if (!accessToken) {
+      navigate("/login");
+    }
     try {
       axios
         .get(
@@ -216,7 +220,7 @@ function Profile() {
         theme="dark"
       />
       <div>
-        <h2 className="page-header">Profile</h2>
+        <h2 className="page-header">Your School Profile</h2>
         <div className="profile-container">
           <div className="profile-container__left">
             <div className="container_left_top">
@@ -274,7 +278,7 @@ function Profile() {
                   }
                 }}
               >
-                UPLOAD PICTURE
+                UPLOAD SCHOOL LOGO
               </div>
 
               {showSavePic && (
@@ -282,7 +286,7 @@ function Profile() {
                   className="container_left_bottom__item"
                   onClick={() => updateProfilePicture()}
                 >
-                  SAVE PICTURE
+                  SAVE LOGO
                 </div>
               )}
               {/* <div className="container_left_bottom__item dark">
@@ -292,7 +296,7 @@ function Profile() {
           </div>
           <div className="profile-container__right">
             <div className="container_right_top">
-              <h3>Basic Profile</h3>
+              <h3>School Details</h3>
 
               <form>
                 <input
@@ -329,7 +333,7 @@ function Profile() {
               </div> */}
               </form>
             </div>
-
+{/* 
             <div className="container_right_bottom">
               <h3>Notifications</h3>
 
@@ -352,7 +356,7 @@ function Profile() {
                   </button>
                 </div>
               </form>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

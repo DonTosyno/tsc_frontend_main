@@ -33,6 +33,7 @@ const Sidebar = ({props}) => {
     const handleLogOut = () => {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('refreshToken')
+        localStorage.removeItem('userType')
         navigate('/login')
     }
     // // console.log(activeItem)

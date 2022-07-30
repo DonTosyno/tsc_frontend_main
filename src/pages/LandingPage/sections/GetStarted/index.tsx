@@ -99,8 +99,7 @@ function GetStarted({showModal,setShowModal,setOverflowHiddenState}:NavbarProps)
           <div>
             <div className="get-started_text">
               <p ref={getStartedSecondTextRef}  className="get-started_text-mobile">
-                Say hello to The Scholars Career one of the world's leading
-                career advancement platform.
+                Say hello to The Scholars Career platform.
               </p>
             </div>
 

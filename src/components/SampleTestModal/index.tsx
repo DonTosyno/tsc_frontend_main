@@ -6,6 +6,7 @@ import { Icon } from "ts-react-feather-icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 import "./styles.css";
 
@@ -53,7 +54,7 @@ function SampleTestModal({ showModal, setShowModal,setOverflowHiddenState }: Nav
       isAnswered: false,
       optionA: {
         text: "Strongly dislike",
-        isSelected: true,
+        isSelected: false,
       },
       optionB: {
         text: "Dislike",
@@ -79,7 +80,7 @@ function SampleTestModal({ showModal, setShowModal,setOverflowHiddenState }: Nav
       questionId: "2",
       optionA: {
         text: "Strongly dislike",
-        isSelected: true,
+        isSelected: false,
       },
       optionB: {
         text: "Dislike",
@@ -104,7 +105,7 @@ function SampleTestModal({ showModal, setShowModal,setOverflowHiddenState }: Nav
         isAnswered: false,
         optionA: {
           text: "Strongly dislike",
-          isSelected: true,
+          isSelected: false,
         },
         optionB: {
           text: "Dislike",
@@ -129,7 +130,7 @@ function SampleTestModal({ showModal, setShowModal,setOverflowHiddenState }: Nav
         questionId: "4",
         optionA: {
           text: "Strongly dislike",
-          isSelected: true,
+          isSelected: false,
         },
         optionB: {
           text: "Dislike",
@@ -149,13 +150,20 @@ function SampleTestModal({ showModal, setShowModal,setOverflowHiddenState }: Nav
         },
       },
   ]);
-
+  const notifyMsg = (msg: string) => toast(msg);
   const startTest = (): void => {
-    setIsTestStarted(true);
-    setIsTestFinished(false)
-    if (currentQuestion === questionsArray.length - 1) {
-      setCurrentQuestion(0)
+    if (isTestFinished) {
+ navigate('/signup')
+    } else {
+      setIsTestStarted(true);
+      setIsTestFinished(false)
     }
+  
+    
+    // if (currentQuestion === questionsArray.length - 1) {
+    //   setCurrentQuestion(0)
+    //   navigate('/signup')
+    // }
   };
 
   const handleOptionSelect = (optionText: string, questionId: string): void => {
@@ -408,8 +416,16 @@ function SampleTestModal({ showModal, setShowModal,setOverflowHiddenState }: Nav
                         <button
                           className="login_submit_button"
                           onClick={() => {
-                       
-                              setCurrentQuestion(index + 1);
+                              const currentQuestionOptions = questionsArray[index];
+                              const optionValues = Object.values(currentQuestionOptions);
+                              const optionValuesFiltered = optionValues.filter(x => x.isSelected);
+                              
+                              if (optionValuesFiltered.length === 0) { 
+                                  notifyMsg('Please select an option')
+                                
+                              } else {
+                                setCurrentQuestion(index + 1);
+                              } 
                           }}
                         >
                           Next
@@ -488,7 +504,7 @@ function SampleTestModal({ showModal, setShowModal,setOverflowHiddenState }: Nav
                   <br /> Explore.
                 </h2> : <h2>Test Completed</h2>}
                 <p style={{ width: "80%" }}>
-            { isTestFinished ? "You have reached the end of the sample test." :"Take the free assessment and uncover things you didn't know about yourself."}
+            { isTestFinished ? "You have reached the end of the sample test." :"Get started now and uncover things you didn't know about yourself."}
                 </p>
 
                 <div className="explore_section_buttons">
@@ -496,7 +512,7 @@ function SampleTestModal({ showModal, setShowModal,setOverflowHiddenState }: Nav
                     className="explore_section_buttons_link"
                     onClick={() => startTest()}
                   >
-                    {isTestFinished ? 'Take the test again' :'Start The Test'}
+                    {isTestFinished ? 'Sign Up' :'Start The Test'}
                   </div>
                 </div>
               </div>

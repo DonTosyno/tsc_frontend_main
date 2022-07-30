@@ -31,6 +31,9 @@ function PsychTest() {
 
   const navigate = useNavigate();
   const getUserResult = async () => {
+    if (!accessToken) {
+      navigate("/login");
+    }
     try {
       axios
         .get(

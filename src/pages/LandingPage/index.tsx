@@ -25,12 +25,12 @@ function LandingPage() {
       <GetStarted showModal={showModal} setShowModal={setShowModal} setOverflowHidden={setOverflowHidden}
 setOverflowHiddenState={setOverflowHiddenState} />
       <AssessmentSection />
-      <SliderSection />
+      {/* <SliderSection /> */}
       {/* <LearnMoreSection /> */}
       <WhyTrustUsSection />
       <LearnMoreSsecondSection />
-      <Testimonials />
-      <ExploreSection />
+      {/* <Testimonials />
+      <ExploreSection /> */}
       <Footer />
     </div>
   );

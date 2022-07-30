@@ -47,16 +47,16 @@ function SliderSection({setStartQuiz}:QuizProps) {
             body: "Take the assesment and get your career matches, personality archetype, and more along the way.",
             img: logoImg1,
           },
-          {
-            heading: "A few things to note before starting",
-            body: "",
-            img: logoImg2,
-          },
-          {
-            heading: "Let's Go!",
-            body: "",
-            img: logoImg3,
-          },
+          // {
+          //   heading: "A few things to note before starting",
+          //   body: "",
+          //   img: logoImg2,
+          // },
+          // {
+          //   heading: "Let's Go!",
+          //   body: "",
+          //   img: logoImg3,
+          // },
         ].map((x, index) => (
           <Slide index={index} key={index}>
             <div className="sidebar__item-inner active slide_container_test" style={{ height: "inherit" }}>
@@ -78,12 +78,9 @@ function SliderSection({setStartQuiz}:QuizProps) {
                       {x.heading}
                     </h2>
                     <p  style={{color: '#000'}}> {x.body}</p>
-                   {
-                     index === 1 && (
+                  
                       <ul className="testSliderBullets" style={{color: '#000'}}>
-                      <li>
-                        Feel free to go back and change your answers. Personal re-evaluation is highly encouraged.
-                      </li>
+                      
                       <li>
                         You cannot change your answers after you submit.
                       </li>
@@ -91,19 +88,14 @@ function SliderSection({setStartQuiz}:QuizProps) {
                         You can save your answers and come back later.
                       </li>
                     </ul>
-                     )
-                   }
-                   {
-                      index === 2 && (
-                       <div className="startTestDiv">
-                         <p style={{color: '#000'}}
-                         >Start your career journey today!</p>
+                 
+                  
+                       <div className="startTestDiv"> 
                           <button onClick={() => setStartQuiz(true)}>
                           Start Test
                         </button>
                        </div>
-                      )
-                   }
+                     
                   </div>
                   <div></div>
                 </div>
@@ -113,7 +105,7 @@ function SliderSection({setStartQuiz}:QuizProps) {
         ))}
       </Slider>
       <div>
-        <ButtonBack>
+        {/* <ButtonBack>
           <div
             style={{
               fontWeight: "bold",
@@ -136,7 +128,7 @@ function SliderSection({setStartQuiz}:QuizProps) {
           >
             Next
           </div>
-        </ButtonNext>
+        </ButtonNext> */}
       </div>
     </CarouselProvider>
   );
