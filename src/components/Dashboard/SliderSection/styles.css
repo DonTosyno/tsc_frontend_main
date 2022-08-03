@@ -12,6 +12,22 @@
     box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 
+@media screen and (max-width: 1200px){
+    .slide_content_test_img_container{
+        display: none;
+    }
+} 
+
+@media screen and (max-width: 1000px){
+    .slide_content_test{
+     
+       
+    }
+    .testSliderBullets > li{
+         font-size: 12px;
+         /* background-color: orange; */
+    }
+} 
 .testSliderBullets li{
     font-family: var(--font_family_main);
     font-weight: bold;

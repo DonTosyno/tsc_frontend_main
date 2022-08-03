@@ -20,10 +20,12 @@ function Profile() {
   const profilePicRef = React.useRef<HTMLInputElement>(null);
   const accessToken = localStorage.getItem("accessToken");
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
+  const [schoolName, setSchoolName] = useState("");
   const [uploadedImg, setUploadedImg] = useState({
     image: {
       type: "",
       name: "",
+      size: 0
     },
     imagePreviewUrl: "",
   });
@@ -36,10 +38,24 @@ function Profile() {
     school: "",
     phoneNumber: "",
   });
+
+  const getStudentSchoolBySchoolId = async (schoolId: string) => {
+    if (!accessToken){
+      navigate('/login')
+    } else {
+          const response = await axios.get(
+      `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/getSchoolBySchoolId/${schoolId}/${accessToken}`
+    );
+    console.log('response')
+    console.log(response)
+    setSchoolName(response.data.schoolName);
+    }
+
+  }
   const getLoggedInUser = () => {
     if (!accessToken) {
       navigate("/login");
-    }
+    } else { 
     try {
       axios
         .get(
@@ -79,6 +95,7 @@ function Profile() {
               navigate("/login");
             } else {
               setUserData(data);
+              getStudentSchoolBySchoolId(res.data.school);
               if (
                 location.pathname === "/dashboard/" ||
                 location.pathname === "/dashboard"
@@ -92,9 +109,13 @@ function Profile() {
       // // console.log("error");
       // // console.log(error && error.message);
     }
+  }
   };
 
   const getUserProfilePicture = () => {
+    if (!accessToken) {
+      navigate("/login");
+    } else {
     try {
       axios
         .get(
@@ -144,6 +165,7 @@ function Profile() {
       // // console.log("error");
       // // console.log(error && error.message);
     }
+    }
   };
 
   useEffect(() => {
@@ -153,12 +175,28 @@ function Profile() {
   const notifyMsg = (msg: string) => toast(msg);
   const updateProfilePicture = () => {
     // // console.log(uploadedImg);
+    const maxFileSize = 80000; //80kb
     const uploadData = {
       imagePreviewUrl: uploadedImg.imagePreviewUrl,
       contentType: uploadedImg.image.type,
       fileName: uploadedImg.image.name,
     };
 
+    console.log(uploadData)
+    console.log(uploadedImg)
+
+    if (uploadedImg.image.type.split('/')[0] !== 'image') {
+      notifyMsg("Please upload a valid image file");
+      return;
+    }
+
+    if (uploadedImg.image.size > maxFileSize){
+      notifyMsg("File size must be less than 80kb");
+      return;
+    }
+    if (!accessToken) {
+      navigate("/login");
+    } else {
     try {
       axios
         .post(
@@ -203,8 +241,9 @@ function Profile() {
           }
         });
     } catch (error: any) {
-      // // console.log("error");
-      // // console.log(error && error.message);
+      console.log("error");
+      console.log(error);
+    }
     }
   };
 
@@ -231,7 +270,7 @@ function Profile() {
                 <h2>
                   {userData.firstName} {userData.lastName}
                 </h2>
-                <p>{userData.school}</p>
+                <p>{schoolName}</p>
               </div>
               <div className="profile-container__left__image">
                 <img
@@ -264,7 +303,7 @@ function Profile() {
                       if (file) {
                         setUploadedImg({
                           image: file[0],
-                          imagePreviewUrl: reader.result as string,
+                          imagePreviewUrl: reader.result as string, 
                         });
                       }
                     };
@@ -325,7 +364,7 @@ function Profile() {
                 <input
                   type="text"
                   placeholder="School Name"
-                  value={userData.school}
+                  value={schoolName}
                 />
                 <input type="text" placeholder="Class" value={userData.class} />
 

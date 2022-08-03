@@ -126,56 +126,64 @@ function SampleTestModal({
   const updatedTestCompletedToTrue = async () => {
     // setIsTestFinished(true);
     // setIsTestStarted(false);
-    try {
-      axios
-        .post(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/submitTest/`+accessToken,
-          {},
-          { withCredentials: true }
-        )
-        .then((res: any) => {
-          // // console.log(res);
-          if (res.status === 403) {
-            navigate("/login");
-          }
-          if (
-            res.data.statusCode === 409 ||
-            res.data.statusCode === 401 ||
-            res.data.statusCode === 400
-          ) {
-            // console.log(res.data.message);
-          }
-
-          if (res.data) {
-            // // console.log("submitTest function ");
-            const { psychTest, currentQuestionDetails: detailsFromResponse } =
-              res.data;
-            // // console.log(res.data)
-            if (psychTest) {
-              // // console.log(psychTest);
-              // // console.log(psychTest.questions.length);
-              setQuestionsInModal(psychTest.questions);
-              if (psychTest.isTestCompleted) {
-                // // console.log("completed questions");
-                setIsTestFinished(true);
-                setIsTestStarted(false);
+    if (!accessToken){
+      navigate('/login')
+    } else {
+      try {
+        axios
+          .post(
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/submitTest/`+accessToken,
+            {},
+            { withCredentials: true }
+          )
+          .then((res: any) => {
+            // // console.log(res);
+            if (res.status === 403) {
+              navigate("/login");
+            }
+            if (
+              res.data.statusCode === 409 ||
+              res.data.statusCode === 401 ||
+              res.data.statusCode === 400
+            ) {
+              // console.log(res.data.message);
+            }
+  
+            if (res.data) {
+              // // console.log("submitTest function ");
+              const { psychTest, currentQuestionDetails: detailsFromResponse } =
+                res.data;
+              // // console.log(res.data)
+              if (psychTest) {
+                // // console.log(psychTest);
+                // // console.log(psychTest.questions.length);
+                setQuestionsInModal(psychTest.questions);
+                if (psychTest.isTestCompleted) {
+                  // // console.log("completed questions");
+                  setIsTestFinished(true);
+                  setIsTestStarted(false);
+                }
+              }
+              
+              if (
+                location.pathname === "/dashboard/" ||
+                location.pathname === "/dashboard"
+              ) {
+                navigate("/dashboard/home");
               }
             }
-            
-            if (
-              location.pathname === "/dashboard/" ||
-              location.pathname === "/dashboard"
-            ) {
-              navigate("/dashboard/home");
-            }
-          }
-        });
-    } catch (error) {
-      // console.log("error");
-      // console.log(error);
+          });
+      } catch (error) {
+        console.log("error");
+        console.log(error);
+      }
     }
+   
   }
   const getUserResult = async () => {
+    if (!accessToken){
+      navigate('/login')
+    } else {
     try {
       axios
         .get(
@@ -226,6 +234,7 @@ function SampleTestModal({
       // console.log("error");
       // console.log(error);
     }
+  }
   };
   const getPreviousQuestions = async () => {
     setNextQuestionAllowedToSubmit(false);
@@ -320,6 +329,9 @@ function SampleTestModal({
     } else if (isNextQuestionAnswered.length === 0) {
       if (nextQuestionAllowedToSubmit) {
         // // console.log("submit now");
+        if (!accessToken){
+          navigate('/login')
+        } else {
         try {
           axios
             .post(
@@ -384,6 +396,7 @@ function SampleTestModal({
           // console.log("error");
           // console.log(error);
         }
+      }
       } else {
         setNextQuestionAllowedToSubmit(true);
         getUserResult();

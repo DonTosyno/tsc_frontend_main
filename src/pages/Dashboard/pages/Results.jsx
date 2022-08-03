@@ -169,7 +169,7 @@ const Results = () => {
     const getUserResult = async () => {
       if (!accessToken) {
         navigate("/login");
-      }
+      } else {
       try {
         axios
           .get(
@@ -244,9 +244,13 @@ const Results = () => {
         // // console.log("error");
         // // console.log(error);
       }
+      }
     };
 
     const getDashboardDetails = async () => {
+      if (!accessToken) {
+        navigate("/login");
+      } else {
       try {
         axios
           .get(
@@ -286,6 +290,7 @@ const Results = () => {
         // // console.log("error");
         // // console.log(error && error.message);
       }
+    }
     };
     getUserResult();
     getDashboardDetails();
@@ -293,6 +298,9 @@ const Results = () => {
 
   useEffect(() => {
     const getTemperaments = async () => {
+      if (!accessToken) {
+        navigate("/login");
+      } else {
       try {
         axios
           .post(
@@ -358,6 +366,7 @@ const Results = () => {
         // console.log("error");
         // console.log(error && error.message);
       }
+    }
     };
     getTemperaments();
   }, [temperamentNames]);

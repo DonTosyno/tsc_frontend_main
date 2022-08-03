@@ -41,7 +41,7 @@ const Support = () => {
     const getCounsellorSupportStudents = async () => {
        if (!accessToken) {
     navigate("/login");
-  }
+  } else {
       try {
         axios
           .get(
@@ -75,7 +75,8 @@ const Support = () => {
       } catch (error) {
         // console.log("error");
         // console.log(error);
-      }
+      } 
+    }
     };
     getCounsellorSupportStudents();
   }, []);

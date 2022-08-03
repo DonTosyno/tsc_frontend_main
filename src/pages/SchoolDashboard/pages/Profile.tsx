@@ -40,7 +40,7 @@ function Profile() {
   const getLoggedInUser = () => {
     if (!accessToken) {
       navigate("/login");
-    }
+    } else{
     try {
       axios
         .get(
@@ -89,9 +89,13 @@ function Profile() {
       // console.log("error");
       // console.log(error && error.message);
     }
+  }
   };
 
   const getUserProfilePicture = () => {
+    if (!accessToken) {
+      navigate("/login");
+    } else {
     try {
       axios
         .get(
@@ -141,6 +145,7 @@ function Profile() {
       // console.log("error");
       // console.log(error && error.message);
     }
+    }
   };
 
   useEffect(() => {
@@ -155,7 +160,9 @@ function Profile() {
       contentType: uploadedImg.image.type,
       fileName: uploadedImg.image.name,
     };
-
+    if (!accessToken) {
+      navigate("/login");
+    } else {
     try {
       axios
         .post(
@@ -203,6 +210,7 @@ function Profile() {
       // console.log("error");
       // console.log(error && error.message);
     }
+  }
   };
 
   return (

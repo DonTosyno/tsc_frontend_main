@@ -14,7 +14,7 @@ function Support() {
     // console.log('working')
     if (!accessToken) {
       navigate("/login");
-    }
+    } else {
     try {
       axios
         .post(
@@ -49,6 +49,7 @@ function Support() {
       // console.log("error");
       // console.log(error);
     }
+  }
   };
   return (
     <>

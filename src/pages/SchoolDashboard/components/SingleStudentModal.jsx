@@ -46,6 +46,9 @@ useEffect(() => {
     const getStudentProfilePic = async () => {
         // console.log(currentStudent)
         if (currentStudent.studentId){
+          if (!accessToken) {
+            navigate("/login");
+          } else {
             try {
                 axios
                   .get(
@@ -83,9 +86,10 @@ useEffect(() => {
                     }
                   });
               } catch (error) {
-                // console.log("error");
-                // console.log(error);
+                console.log("error");
+                console.log(error);
               }
+            }
         }
       
     };

@@ -62,6 +62,9 @@ function Dashboard({ props }: any) {
   });
 
   const getUserProfilePicture = (data: UserDataInterface) => {
+    if (!accessToken){
+      navigate('/login')
+    } else {
     try {
       axios
         .get(
@@ -123,8 +126,12 @@ function Dashboard({ props }: any) {
       // console.log("error");
       // console.log(error && error.message);
     }
+  }
   };
   const getLoggedInUser = () => {
+    if (!accessToken){
+      navigate('/login')
+    } else {
     try {
       axios
         .get(
@@ -170,6 +177,7 @@ function Dashboard({ props }: any) {
       // console.log("error");
       // console.log(error && error.message);
     }
+  }
   };
   
   useEffect(() => {

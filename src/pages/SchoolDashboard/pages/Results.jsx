@@ -149,7 +149,7 @@ const Results = () => {
         const getUserResult = async () => {
           if (!accessToken) {
             navigate("/login");
-          }
+          } else {
             try {
               axios
                 .get(
@@ -189,10 +189,14 @@ const Results = () => {
             } catch (error) {
               // console.log("error");
               // console.log(error);
-            }
+            } 
+          }
           };
 
           const getDashboardDetails = async () => {
+            if (!accessToken) {
+              navigate("/login");
+            } else {
             try {
               axios
                 .get(
@@ -232,6 +236,7 @@ const Results = () => {
               // console.log("error");
               // console.log(error && error.message);
             }
+          }
           };
           getUserResult()
           getDashboardDetails()

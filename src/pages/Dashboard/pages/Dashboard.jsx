@@ -86,7 +86,7 @@ const Dashboard = () => {
   const [psychQuestions, setPsychQuestions] = useState([]);
   const [progressBar, setProgressBar] = useState({
     width: 250,
-    percent: 0.2,
+    percent: 0,
   });
 
   // CHART OPTIONS
@@ -139,8 +139,8 @@ const Dashboard = () => {
     const getDashboardDetails = async () => {
         if (!accessToken) {
         navigate("/login");
-      }
-      try {
+      } else {
+        try {
         axios
           .get(
             `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
@@ -165,6 +165,7 @@ const Dashboard = () => {
               if (psychTest) {
                 setPsychQuestions(psychTest.questions)
                 setIsTestCompleted(psychTest.isTestCompleted)
+                console.log(psychTest.questions)
                 setProgressBar({
                   ...progressBar,
                   percent: psychTest.questions.length / TOTAL_TEST_QUESTIONS,
@@ -184,8 +185,13 @@ const Dashboard = () => {
         // console.log("error");
         // console.log(error && error.message);
       }
+      }
+      
     };
     const getUserResult = async () => {
+      if (!accessToken){
+        navigate('/login')
+      } else {
       try {
         axios
           .get(
@@ -261,6 +267,7 @@ const Dashboard = () => {
         // console.log("error");
         // console.log(error);
       }
+    }
     };
     getDashboardDetails();
     getUserResult();
@@ -268,6 +275,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getTemperaments = async () => {
+      if (!accessToken){
+        navigate('/login')
+      } else {
       try {
         axios
           .post(
@@ -333,12 +343,16 @@ const Dashboard = () => {
         // console.log("error");
         // console.log(error && error.message);
       }
+    }
     };
     getTemperaments();
   }, [temperamentNames]);
 
   useEffect(() => {
     const getLatestActivity = async () => {
+      if (!accessToken){
+        navigate('/login')
+      } else {
       try {
         axios
           .get(
@@ -389,6 +403,7 @@ const Dashboard = () => {
         // console.log("error");
         // console.log(error && error.message);
       }
+    }
     };
 
     getLatestActivity();

@@ -90,6 +90,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getSchoolDashboardDetails = async () => {
+      if (!accessToken) {
+        navigate("/login");
+      } else {
       try {
         axios
           .get(
@@ -134,8 +137,12 @@ const Dashboard = () => {
         // console.log("error");
         // console.log(error && error.message);
       }
+    }
     };
     const getLatestActivity = async () => {
+      if (!accessToken) {
+        navigate("/login");
+      } else {
       try {
         axios
           .get(
@@ -187,6 +194,7 @@ const Dashboard = () => {
         // console.log("error");
         // console.log(error && error.message);
       }
+    }
     };
 
     getLatestActivity();

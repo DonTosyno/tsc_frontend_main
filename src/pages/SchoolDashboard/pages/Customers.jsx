@@ -46,7 +46,7 @@ useEffect(() => {
     const getAllStudents = async () => {
       if (!accessToken) {
         navigate("/login");
-      }
+      } else { 
       try {
         axios
           .get(
@@ -81,6 +81,7 @@ useEffect(() => {
         // console.log("error");
         // console.log(error);
       }
+    }
     };
     getAllStudents();
   }, []);

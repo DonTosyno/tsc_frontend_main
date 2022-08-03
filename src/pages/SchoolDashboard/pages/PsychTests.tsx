@@ -36,7 +36,7 @@ function PsychTest() {
   const getUserResult = async () => {
     if (!accessToken) {
       navigate("/login");
-    }
+    } else {
     try {
       axios
         .get(
@@ -83,6 +83,7 @@ function PsychTest() {
       // console.log("error");
       // console.log(error);
     }
+  }
   };
  
 
