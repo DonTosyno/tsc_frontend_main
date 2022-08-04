@@ -51,20 +51,20 @@ function LoginPage() {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("userType",userType);
-    setCookie("accessToken", accessToken, {
-      maxAge: 900000,
-      httpOnly: true, 
-      path: "/",
-      sameSite: "strict",
-      secure: false,
-    });
-    setCookie("refreshToken", refreshToken, {
-      maxAge: 900000,
-      httpOnly: true, 
-      path: "/",
-      sameSite: "strict",
-      secure: false,
-    });
+    // setCookie("accessToken", accessToken, {
+    //   maxAge: 900000,
+    //   httpOnly: true, 
+    //   path: "/",
+    //   sameSite: "strict",
+    //   secure: false,
+    // });
+    // setCookie("refreshToken", refreshToken, {
+    //   maxAge: 900000,
+    //   httpOnly: true, 
+    //   path: "/",
+    //   sameSite: "strict",
+    //   secure: false,
+    // });
   }
 
   const loginUser = (data: any) => {
@@ -111,6 +111,8 @@ function LoginPage() {
               
               navigate("/dashboard/home");
             } else if (res.data.userType === "SCHOOL") {
+              console.log("school");
+              console.log(res.data.userType);
               navigate("/school/home");
             }
           

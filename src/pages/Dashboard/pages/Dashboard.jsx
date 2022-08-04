@@ -62,7 +62,7 @@ const Dashboard = () => {
       id: "#OD1711",
       user: "john doe",
       price: "17 Jun 2021",
-      date: "$900",
+      date: "",
       status: "shipping",
     },
   ]);

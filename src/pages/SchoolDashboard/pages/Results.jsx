@@ -28,27 +28,27 @@ const topCustomers = {
         {
             "username": "john doe",
             "order": "1",
-            "price": "$15,870"
+            "price": " "
         },
         {
             "username": "frank iva",
             "order": "1",
-            "price": "$12,251"
+            "price": " "
         },
         {
             "username": "anthony baker",
             "order": "1",
-            "price": "$10,840"
+            "price": " "
         },
         {
             "username": "frank iva",
             "order": "1",
-            "price": "$9,251"
+            "price": " "
         },
         {
             "username": "anthony baker",
             "order": "1",
-            "price": "$8,840"
+            "price": " "
         }
     ]
 }
@@ -78,7 +78,7 @@ const latestOrders = {
             id: "#OD1711",
             user: "john doe",
             date: "17 Jun 2021",
-            price: "$900",
+            price: "",
             status: "shipping"
         },
         {

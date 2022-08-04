@@ -23,7 +23,7 @@ interface UserDataInterface {
   profilePictureImgUrl: string;
 }
 
-function Dashboard({ props }: any) {
+function SchoolDashboardMain({ props }: any) {
   const navigate = useNavigate();
   let loginRef = useRef(null);
   // console.log("props");
@@ -115,8 +115,8 @@ function Dashboard({ props }: any) {
               // navigate("/login");
             } else {
               // setUserData(data);
-              if (location.pathname === '/dashboard/' || location.pathname === '/dashboard') {
-                navigate('/dashboard/home')
+              if (location.pathname === '/school/' || location.pathname === '/school') {
+                navigate('/school/home')
               }
             }
           }
@@ -168,8 +168,8 @@ function Dashboard({ props }: any) {
             } else {
               // setUserData(data);
               getUserProfilePicture(data)
-              if (location.pathname === '/dashboard/' || location.pathname === '/dashboard') {
-                navigate('/dashboard/home')
+              if (location.pathname === '/school/' || location.pathname === '/school') {
+                navigate('/school/home')
               }
             }
           }
@@ -226,4 +226,4 @@ function Dashboard({ props }: any) {
   );
 }
 
-export default Dashboard;
+export default SchoolDashboardMain;

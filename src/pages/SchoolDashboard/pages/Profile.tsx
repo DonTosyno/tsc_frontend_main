@@ -25,6 +25,7 @@ function Profile() {
     image: {
       type: "",
       name: "",
+      size: 0
     },
     imagePreviewUrl: "",
   });
@@ -155,11 +156,22 @@ function Profile() {
   const notifyMsg = (msg: string) => toast(msg);
   const updateProfilePicture = () => {
     // console.log(uploadedImg);
+    const maxFileSize = 80000; //80kb
     const uploadData = {
       imagePreviewUrl: uploadedImg.imagePreviewUrl,
       contentType: uploadedImg.image.type,
       fileName: uploadedImg.image.name,
     };
+
+    if (uploadedImg.image.type.split('/')[0] !== 'image') {
+      notifyMsg("Please upload a valid image file");
+      return;
+    }
+
+    if (uploadedImg.image.size > maxFileSize){
+      notifyMsg("File size must be less than 80kb");
+      return;
+    }
     if (!accessToken) {
       navigate("/login");
     } else {

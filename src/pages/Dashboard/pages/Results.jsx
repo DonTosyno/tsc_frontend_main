@@ -68,7 +68,7 @@ const latestOrders = {
       id: "#OD1711",
       user: "john doe",
       date: "17 Jun 2021",
-      price: "$900",
+      price: "",
       status: "shipping",
     },
     {

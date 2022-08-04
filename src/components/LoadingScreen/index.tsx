@@ -28,7 +28,7 @@ function LoadingScreen({setLoading, loading}:Props) {
         setLoading(false);
       }, 1800)
     }
-   }, [loading,setLoading])
+   }, [loading])
   return (
     <div className='loadingScreen'ref={parentRef} >
         <div className='overlay_content' ref={logoImageRef}>

@@ -20,13 +20,10 @@ import { useLocation } from "react-router-dom";
 
 const TOTAL_TEST_QUESTIONS = 48;
 
-const Dashboard = () => {
+const SchoolDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const accessToken = localStorage.getItem("accessToken");
-  if (!accessToken) {
-    navigate("/login");
-  }
   const themeReducer = useSelector((state) => state.ThemeReducer.mode);
   const profileBar = {
     width: 250,
@@ -65,7 +62,7 @@ const Dashboard = () => {
       // id: "#OD1711",
       user: "john doe",
       price: "17 Jun 2021",
-      date: "$900",
+      date: "",
       status: "shipping",
     },
   ]); 
@@ -74,129 +71,117 @@ const Dashboard = () => {
     0,
     0,
     date.toString(),
-  ]);
-  const [finalTestResults, setFinalTestResults] = useState([
-    10, 10, 10, 10, 10, 10,
   ]);  
- 
-  const searchCareer = (searchValue) => {
-    const newWindow = window.open(
-      "https://www.bing.com/search?q=" + searchValue,
-      "_blank",
-      "noopener,noreferrer"
-    );
-    if (newWindow) newWindow.opener = null;
+
+  const getSchoolDashboardDetails = async () => {
+    if (!accessToken) {
+      navigate("/login");
+    } else {
+    try {
+      axios
+        .get(
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/school/getSchoolDashboardDetails/${accessToken}`,
+          { withCredentials: true }
+        )
+        .then((res) => {
+          if (res.status === 403) {
+            console.log(res);
+            // navigate("/login");
+          }
+          if (
+            res.data.statusCode === 409 ||
+            res.data.statusCode === 401 ||
+            res.data.statusCode === 400
+          ) {
+            // console.log(res.data.message);
+          }
+
+          if (res.data) {
+            // console.log(res.data);
+            const {
+              allStudentsUnderSchool,
+              resolvedStudentsWithCompletedTest,
+              resolvedStudentsWithBookedCounsellor,
+            } = res.data;
+            setSchoolDashboardDetails([
+              resolvedStudentsWithCompletedTest,
+              allStudentsUnderSchool,
+              resolvedStudentsWithBookedCounsellor,
+              schoolDashboardDetails[3],
+            ]);
+            if (
+              location.pathname === "/school/" ||
+              location.pathname === "/school"
+            ) {
+              navigate("/school/home");
+            }
+          }
+        });
+    } catch (error) {
+      // console.log("error");
+      // console.log(error && error.message);
+    }
+  }
   };
+  const getLatestActivity = async () => {
+    if (!accessToken) {
+      navigate("/login");
+    } else {
+    try {
+      axios
+        .get(
+          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getLatestSchoolActivity/${accessToken}`,
+          { withCredentials: true }
+        )
+        .then((res) => {
+          if (res.status === 403) {
+            console.log(res);
+            // navigate("/login");
+          }
+          if (
+            res.data.statusCode === 409 ||
+            res.data.statusCode === 401 ||
+            res.data.statusCode === 400
+          ) {
+            // console.log(res.data.message);
+          }
 
+          if (res.data) {
+        
+            const latestActivity = res.data.latestActivity;
+            const latestActivityBody = latestActivity.map((item, index) => {
+              return {
+                // id: item.userId,
+                user: item.typeOfLastActivity,
+                price: new Date(item.dateOfLastActivity).toLocaleDateString(
+                  "en-US",
+                  options
+                ),
+                date: item.timeOfLastActivity,
+                status:
+                  item.typeOfLastActivity === "LOGIN" ? "shipping" : "paid",
+              };
+            });
+            // // console.log("getLatestActivity function");
+            // // console.log(latestActivity);
+            // // console.log(latestActivityBody);
+            setLatestOrdersBody([...latestActivityBody]);
+            if (
+              location.pathname === "/school/" ||
+              location.pathname === "/school"
+            ) {
+              navigate("/school/home");
+            }
+          }
+        });
+    } catch (error) {
+      // console.log("error");
+      // console.log(error && error.message);
+    }
+  }
+  };
   useEffect(() => {
-    const getSchoolDashboardDetails = async () => {
-      if (!accessToken) {
-        navigate("/login");
-      } else {
-      try {
-        axios
-          .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/school/getSchoolDashboardDetails/${accessToken}`,
-            { withCredentials: true }
-          )
-          .then((res) => {
-            if (res.status === 403) {
-              console.log(res);
-              // navigate("/login");
-            }
-            if (
-              res.data.statusCode === 409 ||
-              res.data.statusCode === 401 ||
-              res.data.statusCode === 400
-            ) {
-              // console.log(res.data.message);
-            }
-
-            if (res.data) {
-              // console.log(res.data);
-              const {
-                allStudentsUnderSchool,
-                resolvedStudentsWithCompletedTest,
-                resolvedStudentsWithBookedCounsellor,
-              } = res.data;
-              setSchoolDashboardDetails([
-                resolvedStudentsWithCompletedTest,
-                allStudentsUnderSchool,
-                resolvedStudentsWithBookedCounsellor,
-                schoolDashboardDetails[3],
-              ]);
-              if (
-                location.pathname === "/dashboard/" ||
-                location.pathname === "/dashboard"
-              ) {
-                navigate("/dashboard/home");
-              }
-            }
-          });
-      } catch (error) {
-        // console.log("error");
-        // console.log(error && error.message);
-      }
-    }
-    };
-    const getLatestActivity = async () => {
-      if (!accessToken) {
-        navigate("/login");
-      } else {
-      try {
-        axios
-          .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getLatestSchoolActivity/${accessToken}`,
-            { withCredentials: true }
-          )
-          .then((res) => {
-            if (res.status === 403) {
-              console.log(res);
-              // navigate("/login");
-            }
-            if (
-              res.data.statusCode === 409 ||
-              res.data.statusCode === 401 ||
-              res.data.statusCode === 400
-            ) {
-              // console.log(res.data.message);
-            }
-
-            if (res.data) {
-          
-              const latestActivity = res.data.latestActivity;
-              const latestActivityBody = latestActivity.map((item, index) => {
-                return {
-                  // id: item.userId,
-                  user: item.typeOfLastActivity,
-                  price: new Date(item.dateOfLastActivity).toLocaleDateString(
-                    "en-US",
-                    options
-                  ),
-                  date: item.timeOfLastActivity,
-                  status:
-                    item.typeOfLastActivity === "LOGIN" ? "shipping" : "paid",
-                };
-              });
-              // // console.log("getLatestActivity function");
-              // // console.log(latestActivity);
-              // // console.log(latestActivityBody);
-              setLatestOrdersBody([...latestActivityBody]);
-              if (
-                location.pathname === "/dashboard/" ||
-                location.pathname === "/dashboard"
-              ) {
-                navigate("/dashboard/home");
-              }
-            }
-          });
-      } catch (error) {
-        // console.log("error");
-        // console.log(error && error.message);
-      }
-    }
-    };
-
+     
     getLatestActivity();
     getSchoolDashboardDetails();
   }, []);
@@ -317,4 +302,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default SchoolDashboard;
