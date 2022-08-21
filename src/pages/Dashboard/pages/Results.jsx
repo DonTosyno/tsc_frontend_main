@@ -692,7 +692,7 @@ const Results = () => {
                 </div>
 
                 <div>
-                <h3>Top Career Matches [{temperamentNames.firstTemperament}, {temperamentNames.secondTemperament}, {temperamentNames.thirdTemperament}]</h3>
+                <h3>Top Career Matches</h3>
                   <div
                     className="card__controls"
                     style={{ flexDirection: "row" }}

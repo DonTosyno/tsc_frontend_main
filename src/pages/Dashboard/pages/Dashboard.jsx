@@ -166,7 +166,7 @@ const Dashboard = () => {
                 if (psychTest) {
                   setPsychQuestions(psychTest.questions);
                   setIsTestCompleted(psychTest.isTestCompleted);
-                  console.log(psychTest.questions);
+                  // console.log(psychTest.questions);
                   setProgressBar({
                     ...progressBar,
                     percent: psychTest.questions.length / TOTAL_TEST_QUESTIONS,
@@ -658,7 +658,7 @@ const Dashboard = () => {
                   </li>
                 </ul>
 
-                <h3>Top Career Matches [{temperamentNames.firstTemperament}, {temperamentNames.secondTemperament}, {temperamentNames.thirdTemperament}]</h3>
+                <h3>Top Career Matches</h3>
                 <div
                   className="card__controls"
                   style={{ flexDirection: "row" }}
