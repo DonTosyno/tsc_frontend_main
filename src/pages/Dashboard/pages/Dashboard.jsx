@@ -66,7 +66,7 @@ const Dashboard = () => {
       status: "shipping",
     },
   ]);
-  const [isTestCompleted, setIsTestCompleted] = useState(false)
+  const [isTestCompleted, setIsTestCompleted] = useState(false);
   const [temperamentNames, setTemperamentNames] = useState({
     firstTemperament: "",
     secondTemperament: "",
@@ -80,6 +80,7 @@ const Dashboard = () => {
     "N/A",
     date.toString(),
   ]);
+  const [studentCareers, setStudentCareers] = useState([]);
   const [finalTestResults, setFinalTestResults] = useState([
     10, 10, 10, 10, 10, 10,
   ]);
@@ -137,137 +138,185 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getDashboardDetails = async () => {
-        if (!accessToken) {
+      if (!accessToken) {
         navigate("/login");
       } else {
         try {
-        axios
-          .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
-            { withCredentials: true }
-          )
-          .then((res) => {
-            if (res.status === 403) {
-              navigate("/login");
-            }
-            if (
-              res.data.statusCode === 409 ||
-              res.data.statusCode === 401 ||
-              res.data.statusCode === 400
-            ) {
-              // console.log(res.data.message);
-            }
-
-            if (res.data) {
-              // // console.log("getDashboardDetails function ");
-
-              const { psychTest } = res.data;
-              if (psychTest) {
-                setPsychQuestions(psychTest.questions)
-                setIsTestCompleted(psychTest.isTestCompleted)
-                console.log(psychTest.questions)
-                setProgressBar({
-                  ...progressBar,
-                  percent: psychTest.questions.length / TOTAL_TEST_QUESTIONS,
-                  width: 250,
-                });
+          axios
+            .get(
+              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
+              { withCredentials: true }
+            )
+            .then((res) => {
+              if (res.status === 403) {
+                navigate("/login");
               }
-
               if (
-                location.pathname === "/dashboard/" ||
-                location.pathname === "/dashboard"
+                res.data.statusCode === 409 ||
+                res.data.statusCode === 401 ||
+                res.data.statusCode === 400
               ) {
-                navigate("/dashboard/home");
+                // console.log(res.data.message);
               }
-            }
-          });
-      } catch (error) {
-        // console.log("error");
-        // console.log(error && error.message);
+
+              if (res.data) {
+                // // console.log("getDashboardDetails function ");
+
+                const { psychTest } = res.data;
+                if (psychTest) {
+                  setPsychQuestions(psychTest.questions);
+                  setIsTestCompleted(psychTest.isTestCompleted);
+                  console.log(psychTest.questions);
+                  setProgressBar({
+                    ...progressBar,
+                    percent: psychTest.questions.length / TOTAL_TEST_QUESTIONS,
+                    width: 250,
+                  });
+                }
+
+                if (
+                  location.pathname === "/dashboard/" ||
+                  location.pathname === "/dashboard"
+                ) {
+                  navigate("/dashboard/home");
+                }
+              }
+            });
+        } catch (error) {
+          // console.log("error");
+          // console.log(error && error.message);
+        }
       }
+    };
+    const getStudentCareers = async (acronym) => {
+      if (!accessToken) {
+        navigate("/login");
+      } else {
+        try {
+          axios
+            .get(
+              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserCareers/${acronym}/${accessToken}`,
+
+              { withCredentials: true }
+            )
+            .then((res) => {
+              if (res.status === 403) {
+                navigate("/login");
+              }
+              if (
+                res.data.statusCode === 409 ||
+                res.data.statusCode === 401 ||
+                res.data.statusCode === 400
+              ) {
+                // console.log(res.data.message);
+              }
+
+              if (res.data) {
+                // console.log("getDashboardDetails function ");
+                setStudentCareers(res.data.data);
+                console.log(res.data.data)
+                if (
+                  location.pathname === "/dashboard/" ||
+                  location.pathname === "/dashboard"
+                ) {
+                  navigate("/dashboard/home");
+                }
+              }
+            });
+        } catch (error) {
+          // console.log("error");
+          // console.log(error && error.message);
+        }
       }
-      
     };
     const getUserResult = async () => {
-      if (!accessToken){
-        navigate('/login')
+      if (!accessToken) {
+        navigate("/login");
       } else {
-      try {
-        axios
-          .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
-            { withCredentials: true }
-          )
-          .then((res) => {
-            // // console.log(res);
-            if (res.status === 403) {
-              navigate("/login");
-            }
-            if (
-              res.data.statusCode === 409 ||
-              res.data.statusCode === 401 ||
-              res.data.statusCode === 400
-            ) {
-              // console.log(res.data.message);
-            }
-
-            if (res.data) {
-              // // console.log("getUserResult function ");
-              // // console.log(res.data);
-              const { testResults, unsortedResults } = res.data;
-
-              if (testResults && testResults.length > 0) {
-                setFinalTestResults(unsortedResults);
-                const firstTemperament = [
-                  "Realistic",
-                  "Investigative",
-                  "Artistic",
-                  "Social",
-                  "Enterprising",
-                  "Conventional",
-                ].filter((item) => {
-                  return item.charAt(0) === testResults[0].type.charAt(0);
-                });
-                const secondTemperament = [
-                  "Realistic",
-                  "Investigative",
-                  "Artistic",
-                  "Social",
-                  "Enterprising",
-                  "Conventional",
-                ].filter((item) => {
-                  return item.charAt(0) === testResults[1].type.charAt(0);
-                });
-                const thirdTemperament = [
-                  "Realistic",
-                  "Investigative",
-                  "Artistic",
-                  "Social",
-                  "Enterprising",
-                  "Conventional",
-                ].filter((item) => {
-                  return item.charAt(0) === testResults[2].type.charAt(0);
-                });
-                setTemperamentNames({
-                  firstTemperament,
-                  secondTemperament,
-                  thirdTemperament,
-                });
+        try {
+          axios
+            .get(
+              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/${accessToken}`,
+              { withCredentials: true }
+            )
+            .then((res) => {
+              // // console.log(res);
+              if (res.status === 403) {
+                navigate("/login");
               }
-
               if (
-                location.pathname === "/dashboard/" ||
-                location.pathname === "/dashboard"
+                res.data.statusCode === 409 ||
+                res.data.statusCode === 401 ||
+                res.data.statusCode === 400
               ) {
-                navigate("/dashboard/home");
+                // console.log(res.data.message);
               }
-            }
-          });
-      } catch (error) {
-        // console.log("error");
-        // console.log(error);
+
+              if (res.data) {
+                // // console.log("getUserResult function ");
+                // // console.log(res.data);
+                const { testResults, unsortedResults } = res.data;
+
+                if (testResults && testResults.length > 0) {
+                  setFinalTestResults(unsortedResults);
+                  const firstTemperament = [
+                    "Realistic",
+                    "Investigative",
+                    "Artistic",
+                    "Social",
+                    "Enterprising",
+                    "Conventional",
+                  ].filter((item) => {
+                    return item.charAt(0) === testResults[0].type.charAt(0);
+                  });
+                  const secondTemperament = [
+                    "Realistic",
+                    "Investigative",
+                    "Artistic",
+                    "Social",
+                    "Enterprising",
+                    "Conventional",
+                  ].filter((item) => {
+                    return item.charAt(0) === testResults[1].type.charAt(0);
+                  });
+                  const thirdTemperament = [
+                    "Realistic",
+                    "Investigative",
+                    "Artistic",
+                    "Social",
+                    "Enterprising",
+                    "Conventional",
+                  ].filter((item) => {
+                    return item.charAt(0) === testResults[2].type.charAt(0);
+                  });
+                  setTemperamentNames({
+                    firstTemperament,
+                    secondTemperament,
+                    thirdTemperament,
+                  });
+                  const acronym = `${firstTemperament[0].charAt(
+                    0
+                  )}${secondTemperament[0].charAt(
+                    0
+                  )}${thirdTemperament[0].charAt(0)}`;
+                  // console.log('acronym')
+                  // console.log(acronym)
+                  getStudentCareers(acronym);
+                }
+
+                if (
+                  location.pathname === "/dashboard/" ||
+                  location.pathname === "/dashboard"
+                ) {
+                  navigate("/dashboard/home");
+                }
+              }
+            });
+        } catch (error) {
+          // console.log("error");
+          // console.log(error);
+        }
       }
-    }
     };
     getDashboardDetails();
     getUserResult();
@@ -275,135 +324,134 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getTemperaments = async () => {
-      if (!accessToken){
-        navigate('/login')
+      if (!accessToken) {
+        navigate("/login");
       } else {
-      try {
-        axios
-          .post(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getTemperamentData/${accessToken}`,
-            {
-              ...temperamentNames,
-            },
-            { withCredentials: true }
-          )
-          .then((res) => {
-            // // console.log(res);
-            if (res.status === 403) {
-              navigate("/login");
-            }
-            if (
-              res.data.statusCode === 409 ||
-              res.data.statusCode === 401 ||
-              res.data.statusCode === 400
-            ) {
-              // console.log(res.data.message);
-            }
+        try {
+          axios
+            .post(
+              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getTemperamentData/${accessToken}`,
+              {
+                ...temperamentNames,
+              },
+              { withCredentials: true }
+            )
+            .then((res) => {
+              // // console.log(res);
+              if (res.status === 403) {
+                navigate("/login");
+              }
+              if (
+                res.data.statusCode === 409 ||
+                res.data.statusCode === 401 ||
+                res.data.statusCode === 400
+              ) {
+                // console.log(res.data.message);
+              }
 
-            if (res.data) {
-              // // console.log("getTemperaments function ");
-              // // console.log(res.data);
-              if (res.data !== null) {
+              if (res.data) {
+                // // console.log("getTemperaments function ");
+                // // console.log(res.data);
+                if (res.data !== null) {
+                  if (
+                    res.data.statusCode === 409 ||
+                    res.data.statusCode === 401 ||
+                    res.data.statusCode === 403 ||
+                    res.status === 403
+                  ) {
+                    // console.log(res.data.message);
+                  } else if (res.data && res.data.temperaments.temperament1) {
+                    setTestResultControls(
+                      res.data.temperaments.temperament1.temperamentName
+                    );
+                    setTemperamentOneData(res.data.temperaments.temperament1);
+                    setTemperamentTwoData(res.data.temperaments.temperament2);
+                    setTemperamentThreeData(res.data.temperaments.temperament3);
+                    setTemperamentAndLastLogin([
+                      `${res.data.temperaments.temperament1.temperamentName.charAt(
+                        0
+                      )}${res.data.temperaments.temperament2.temperamentName.charAt(
+                        0
+                      )}${res.data.temperaments.temperament3.temperamentName.charAt(
+                        0
+                      )}`,
+                      temperamentAndLastLogin[1],
+                    ]);
+                  }
+                }
+
                 if (
-                  res.data.statusCode === 409 ||
-                  res.data.statusCode === 401 ||
-                  res.data.statusCode === 403 ||
-                  res.status === 403
+                  location.pathname === "/dashboard/" ||
+                  location.pathname === "/dashboard"
                 ) {
-                  // console.log(res.data.message);
-                } else if (res.data && res.data.temperaments.temperament1){
-                  setTestResultControls(
-                    res.data.temperaments.temperament1.temperamentName
-                  );
-                  setTemperamentOneData(res.data.temperaments.temperament1);
-                  setTemperamentTwoData(res.data.temperaments.temperament2);
-                  setTemperamentThreeData(res.data.temperaments.temperament3);
-                  setTemperamentAndLastLogin([
-                    `${res.data.temperaments.temperament1.temperamentName.charAt(
-                      0
-                    )}${res.data.temperaments.temperament2.temperamentName.charAt(
-                      0
-                    )}${res.data.temperaments.temperament3.temperamentName.charAt(
-                      0
-                    )}`,
-                    temperamentAndLastLogin[1],
-                  ]);
+                  navigate("/dashboard/home");
                 }
               }
-
-              if (
-                location.pathname === "/dashboard/" ||
-                location.pathname === "/dashboard"
-              ) {
-                navigate("/dashboard/home");
-              }
-            }
-          });
-      } catch (error) {
-        // console.log("error");
-        // console.log(error && error.message);
+            });
+        } catch (error) {
+          // console.log("error");
+          // console.log(error && error.message);
+        }
       }
-    }
     };
     getTemperaments();
   }, [temperamentNames]);
 
   useEffect(() => {
     const getLatestActivity = async () => {
-      if (!accessToken){
-        navigate('/login')
+      if (!accessToken) {
+        navigate("/login");
       } else {
-      try {
-        axios
-          .get(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getLatestActivity/${accessToken}`,
-            { withCredentials: true }
-          )
-          .then((res) => {
-            if (res.status === 403) {
-              navigate("/login");
-            }
-            if (
-              res.data.statusCode === 409 ||
-              res.data.statusCode === 401 ||
-              res.data.statusCode === 400
-            ) {
-              // console.log(res.data.message);
-            }
-
-            if (res.data) {
-          
-              const latestActivity = res.data.latestActivity;
-              const latestActivityBody = latestActivity.map((item, index) => {
-                return {
-                  id: item.userId,
-                  user: item.typeOfLastActivity,
-                  price: new Date(item.dateOfLastActivity).toLocaleDateString(
-                    "en-US",
-                    options
-                  ),
-                  date: item.timeOfLastActivity,
-                  status:
-                    item.typeOfLastActivity === "LOGIN" ? "shipping" : "paid",
-                };
-              });
-              // // console.log("getLatestActivity function");
-              // // console.log(latestActivity);
-              // // console.log(latestActivityBody);
-              setLatestOrdersBody([...latestActivityBody]);
-              if (
-                location.pathname === "/dashboard/" ||
-                location.pathname === "/dashboard"
-              ) {
-                navigate("/dashboard/home");
+        try {
+          axios
+            .get(
+              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/data/getLatestActivity/${accessToken}`,
+              { withCredentials: true }
+            )
+            .then((res) => {
+              if (res.status === 403) {
+                navigate("/login");
               }
-            }
-          });
-      } catch (error) {
-        // console.log("error");
-        // console.log(error && error.message);
+              if (
+                res.data.statusCode === 409 ||
+                res.data.statusCode === 401 ||
+                res.data.statusCode === 400
+              ) {
+                // console.log(res.data.message);
+              }
+
+              if (res.data) {
+                const latestActivity = res.data.latestActivity;
+                const latestActivityBody = latestActivity.map((item, index) => {
+                  return {
+                    id: item.userId,
+                    user: item.typeOfLastActivity,
+                    price: new Date(item.dateOfLastActivity).toLocaleDateString(
+                      "en-US",
+                      options
+                    ),
+                    date: item.timeOfLastActivity,
+                    status:
+                      item.typeOfLastActivity === "LOGIN" ? "shipping" : "paid",
+                  };
+                });
+                // // console.log("getLatestActivity function");
+                // // console.log(latestActivity);
+                // // console.log(latestActivityBody);
+                setLatestOrdersBody([...latestActivityBody]);
+                if (
+                  location.pathname === "/dashboard/" ||
+                  location.pathname === "/dashboard"
+                ) {
+                  navigate("/dashboard/home");
+                }
+              }
+            });
+        } catch (error) {
+          // console.log("error");
+          // console.log(error && error.message);
+        }
       }
-    }
     };
 
     getLatestActivity();
@@ -413,61 +461,55 @@ const Dashboard = () => {
       <h2 className="page-header">Dashboard</h2>
       <div className="row dashboardCardsContainer">
         <div className="col-6">
-          <div className="row" style={{width: '100%'}}>
-            <div
-            className="dashboardCardsMain" 
-            >
+          <div className="row" style={{ width: "100%" }}>
+            <div className="dashboardCardsMain">
               <TestProgressCard props={progressBar} title={"Test Progress"} />
               <TestProgressCard props={profileBar} title={"Profile Progress"} />
             </div>
-            <div
-            className="dashboardCardsMain" 
-            >
-            {statusCards.map((item, index) => (
-              <div
-                className="col-6"
-                key={index}
-                style={{ position: "relative", zIndex: "9000" }}
-              >
-                {index === 0 && (
-                  !isTestCompleted && <div
-                    style={{
-                      position: "absolute",
-                      padding: "20px",
-                      top: "0",
-                      left: "0",
-                      zIndex: "9100",
-                      fontSize: "15px",
-                      textAlign: "center",
-                      background: "rgba(240,240,240,0.7)",
-                      width: "100%",
-                      height: "100%",
-                      color: "#62b4ff",
-                      fontWeight: "bold",
-                      cursor: "pointer",
-                    }}
-                  >
-                    
-                  </div> 
-                )}
-                <StatusCard
-                  icon={item.icon}
-                  count={
-                    index === 0
-                      ? psychQuestions.length !== TOTAL_TEST_QUESTIONS
-                        ? "N/A"
-                        : temperamentAndLastLogin[0]
-                      : temperamentAndLastLogin[1]
-                  }
-                  title={item.title}
-                />
-              </div>
-            ))}
+            <div className="dashboardCardsMain">
+              {statusCards.map((item, index) => (
+                <div
+                  className="col-6"
+                  key={index}
+                  style={{ position: "relative", zIndex: "9000" }}
+                >
+                  {index === 0 && !isTestCompleted && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        padding: "20px",
+                        top: "0",
+                        left: "0",
+                        zIndex: "9100",
+                        fontSize: "15px",
+                        textAlign: "center",
+                        background: "rgba(240,240,240,0.7)",
+                        width: "100%",
+                        height: "100%",
+                        color: "#62b4ff",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                      }}
+                    ></div>
+                  )}
+                  <StatusCard
+                    icon={item.icon}
+                    count={
+                      index === 0
+                        ? psychQuestions.length !== TOTAL_TEST_QUESTIONS
+                          ? "N/A"
+                          : temperamentAndLastLogin[0]
+                        : temperamentAndLastLogin[1]
+                    }
+                    title={item.title}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
         <div className="col-6" style={{ position: "relative", zIndex: "90" }}>
-          {!isTestCompleted &&  (
+          {!isTestCompleted && (
             <div
               style={{
                 position: "absolute",
@@ -508,8 +550,11 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <div className="col-12" style={{ position: "relative", zIndex: "9000" }}>
-          {!isTestCompleted &&  (
+        <div
+          className="col-12"
+          style={{ position: "relative", zIndex: "9000" }}
+        >
+          {!isTestCompleted && (
             <div
               style={{
                 position: "absolute",
@@ -613,90 +658,16 @@ const Dashboard = () => {
                   </li>
                 </ul>
 
-                <h3>Top Career Matches</h3>
+                <h3>Top Career Matches [{temperamentNames.firstTemperament}, {temperamentNames.secondTemperament}, {temperamentNames.thirdTemperament}]</h3>
                 <div
                   className="card__controls"
                   style={{ flexDirection: "row" }}
                 >
-                  <p
-                    onClick={() =>
-                      searchCareer(
-                        testResultControls ===
-                          temperamentOneData.temperamentName
-                          ? temperamentOneData.careerMatch1
-                          : testResultControls ===
-                            temperamentTwoData.temperamentName
-                          ? temperamentTwoData.careerMatch1
-                          : testResultControls ===
-                            temperamentThreeData.temperamentName
-                          ? temperamentThreeData.careerMatch1
-                          : ""
-                      )
-                    }
-                  >
-                    {testResultControls === temperamentOneData.temperamentName
-                      ? temperamentOneData.careerMatch1
-                      : testResultControls ===
-                        temperamentTwoData.temperamentName
-                      ? temperamentTwoData.careerMatch1
-                      : testResultControls ===
-                        temperamentThreeData.temperamentName
-                      ? temperamentThreeData.careerMatch1
-                      : ""}
-                  </p>
-                  <p
-                    onClick={() =>
-                      searchCareer(
-                        testResultControls ===
-                          temperamentOneData.temperamentName
-                          ? temperamentOneData.careerMatch2
-                          : testResultControls ===
-                            temperamentTwoData.temperamentName
-                          ? temperamentTwoData.careerMatch2
-                          : testResultControls ===
-                            temperamentThreeData.temperamentName
-                          ? temperamentThreeData.careerMatch2
-                          : ""
-                      )
-                    }
-                  >
-                    {testResultControls === temperamentOneData.temperamentName
-                      ? temperamentOneData.careerMatch2
-                      : testResultControls ===
-                        temperamentTwoData.temperamentName
-                      ? temperamentTwoData.careerMatch2
-                      : testResultControls ===
-                        temperamentThreeData.temperamentName
-                      ? temperamentThreeData.careerMatch2
-                      : ""}
-                  </p>
-                  <p
-                    onClick={() =>
-                      searchCareer(
-                        testResultControls ===
-                          temperamentOneData.temperamentName
-                          ? temperamentOneData.careerMatch3
-                          : testResultControls ===
-                            temperamentTwoData.temperamentName
-                          ? temperamentTwoData.careerMatch3
-                          : testResultControls ===
-                            temperamentThreeData.temperamentName
-                          ? temperamentThreeData.careerMatch3
-                          : ""
-                      )
-                    }
-                  >
-                    {" "}
-                    {testResultControls === temperamentOneData.temperamentName
-                      ? temperamentOneData.careerMatch3
-                      : testResultControls ===
-                        temperamentTwoData.temperamentName
-                      ? temperamentTwoData.careerMatch3
-                      : testResultControls ===
-                        temperamentThreeData.temperamentName
-                      ? temperamentThreeData.careerMatch3
-                      : ""}
-                  </p>
+                 {
+                   studentCareers.map((career, index) => {
+                    return <p onClick={() => searchCareer(career)}>{career}</p>
+                  })  || []
+                 }
                 </div>
               </div>
             </div>

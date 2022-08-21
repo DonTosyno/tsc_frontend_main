@@ -151,6 +151,7 @@ const Results = () => {
   const [temperamentOneData, setTemperamentOneData] = useState({});
   const [temperamentTwoData, setTemperamentTwoData] = useState({});
   const [temperamentThreeData, setTemperamentThreeData] = useState({});
+  const [studentCareers, setStudentCareers] = useState([]);
   const [temperamentAndLastLogin, setTemperamentAndLastLogin] = useState([
     "N/A",
     date.toString(),
@@ -166,6 +167,47 @@ const Results = () => {
   };
 
   useEffect(() => {
+    const getStudentCareers = async (acronym) => {
+      if (!accessToken) {
+        navigate("/login");
+      } else {
+        try {
+          axios
+            .get(
+              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserCareers/${acronym}/${accessToken}`,
+
+              { withCredentials: true }
+            )
+            .then((res) => {
+              if (res.status === 403) {
+                navigate("/login");
+              }
+              if (
+                res.data.statusCode === 409 ||
+                res.data.statusCode === 401 ||
+                res.data.statusCode === 400
+              ) {
+                // console.log(res.data.message);
+              }
+
+              if (res.data) {
+                // console.log("getDashboardDetails function ");
+                setStudentCareers(res.data.data);
+                console.log(res.data.data)
+                if (
+                  location.pathname === "/dashboard/" ||
+                  location.pathname === "/dashboard"
+                ) {
+                  navigate("/dashboard/home");
+                }
+              }
+            });
+        } catch (error) {
+          // console.log("error");
+          // console.log(error && error.message);
+        }
+      }
+    };
     const getUserResult = async () => {
       if (!accessToken) {
         navigate("/login");
@@ -231,6 +273,12 @@ const Results = () => {
                   secondTemperament,
                   thirdTemperament,
                 });
+                const acronym = `${firstTemperament[0].charAt(
+                  0
+                )}${secondTemperament[0].charAt(
+                  0
+                )}${thirdTemperament[0].charAt(0)}`;
+                getStudentCareers(acronym)
               }
               if (
                 location.pathname === "/dashboard/" ||
@@ -644,90 +692,16 @@ const Results = () => {
                 </div>
 
                 <div>
-                  <h3>Top Career Matches</h3>
+                <h3>Top Career Matches [{temperamentNames.firstTemperament}, {temperamentNames.secondTemperament}, {temperamentNames.thirdTemperament}]</h3>
                   <div
                     className="card__controls"
                     style={{ flexDirection: "row" }}
-                  >
-                    <p
-                      onClick={() =>
-                        searchCareer(
-                          testResultControls ===
-                            temperamentOneData.temperamentName
-                            ? temperamentOneData.careerMatch1
-                            : testResultControls ===
-                              temperamentTwoData.temperamentName
-                            ? temperamentTwoData.careerMatch1
-                            : testResultControls ===
-                              temperamentThreeData.temperamentName
-                            ? temperamentThreeData.careerMatch1
-                            : ""
-                        )
-                      }
-                    >
-                      {testResultControls === temperamentOneData.temperamentName
-                        ? temperamentOneData.careerMatch1
-                        : testResultControls ===
-                          temperamentTwoData.temperamentName
-                        ? temperamentTwoData.careerMatch1
-                        : testResultControls ===
-                          temperamentThreeData.temperamentName
-                        ? temperamentThreeData.careerMatch1
-                        : ""}
-                    </p>
-                    <p
-                      onClick={() =>
-                        searchCareer(
-                          testResultControls ===
-                            temperamentOneData.temperamentName
-                            ? temperamentOneData.careerMatch2
-                            : testResultControls ===
-                              temperamentTwoData.temperamentName
-                            ? temperamentTwoData.careerMatch2
-                            : testResultControls ===
-                              temperamentThreeData.temperamentName
-                            ? temperamentThreeData.careerMatch2
-                            : ""
-                        )
-                      }
-                    >
-                      {testResultControls === temperamentOneData.temperamentName
-                        ? temperamentOneData.careerMatch2
-                        : testResultControls ===
-                          temperamentTwoData.temperamentName
-                        ? temperamentTwoData.careerMatch2
-                        : testResultControls ===
-                          temperamentThreeData.temperamentName
-                        ? temperamentThreeData.careerMatch2
-                        : ""}
-                    </p>
-                    <p
-                      onClick={() =>
-                        searchCareer(
-                          testResultControls ===
-                            temperamentOneData.temperamentName
-                            ? temperamentOneData.careerMatch3
-                            : testResultControls ===
-                              temperamentTwoData.temperamentName
-                            ? temperamentTwoData.careerMatch3
-                            : testResultControls ===
-                              temperamentThreeData.temperamentName
-                            ? temperamentThreeData.careerMatch3
-                            : ""
-                        )
-                      }
-                    >
-                      {" "}
-                      {testResultControls === temperamentOneData.temperamentName
-                        ? temperamentOneData.careerMatch3
-                        : testResultControls ===
-                          temperamentTwoData.temperamentName
-                        ? temperamentTwoData.careerMatch3
-                        : testResultControls ===
-                          temperamentThreeData.temperamentName
-                        ? temperamentThreeData.careerMatch3
-                        : ""}
-                    </p>
+                  >  
+                 {
+                   studentCareers.map((career, index) => {
+                    return <p onClick={() => searchCareer(career)}>{career}</p>
+                  })  || []
+                 }
                   </div>
                 </div>
               </div>

@@ -46,8 +46,8 @@ function Profile() {
           const response = await axios.get(
       `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/profile/getSchoolBySchoolId/${schoolId}/${accessToken}`
     );
-    console.log('response')
-    console.log(response)
+    // console.log('response')
+    // console.log(response)
     setSchoolName(response.data.schoolName);
     }
 
