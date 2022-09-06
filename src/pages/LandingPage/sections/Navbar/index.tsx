@@ -56,6 +56,9 @@ function Navbar({setShowModal,setOverflowHiddenState}:NavbarProps) {
           Dashboard
         </Link>
 }
+<Link to="/signup" className="navbar_links nav-nav_links">
+          Sign Up
+        </Link>
         <p className="nav-take_test nav-nav_links" style={{marginTop: '12px'}} onClick={() => {setShowModal(true);setOverflowHiddenState(true) }}>Take the Free Test</p>
       </ul>
       {/* Only shows for mobile screen */}
