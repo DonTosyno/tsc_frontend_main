@@ -10,6 +10,7 @@ function Footer() {
           <h2>FOR INDIVIDUALS</h2>
           <Link to="/login" className="footer_links">Login</Link>
           <Link to="/signup" className="footer_links">Sign Up</Link>
+          <Link to="/admin-login" className="footer_links">Admin Login</Link>
         </div>
 
         {/* <div className="grid_item">

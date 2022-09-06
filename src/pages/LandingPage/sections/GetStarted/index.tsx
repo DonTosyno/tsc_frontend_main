@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
-import logoImg from "../../../../assets/img/landing_img.jpg";
+import logoImg from "../../../../assets/img/careerimg.png";
 import logoMainImg from '../../../../assets/icons/TSC-plain.png';
 import gsap, { Power3 } from "gsap";
 import { motion } from "framer-motion";

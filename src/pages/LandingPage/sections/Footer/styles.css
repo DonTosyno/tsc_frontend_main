@@ -18,14 +18,7 @@
      font-family: var(--font_family_secondary);
      font-size: 20px;
      padding-bottom: 20px;
- }
-
- .grid_item h2{
-    color: rgb(92, 92, 92);
-    font-family: var(--font_family_secondary);
-    font-size: 20px;
-    padding-bottom: 20px;
-}
+ } 
 
 .footer_links{
     text-decoration: none;
@@ -33,6 +26,8 @@
     font-size: 15px;
     font-family: var(--font_family_secondary);
     margin: 5px 0;
+    /* background: magenta; */
+    width: 13rem;
 }
 
 .bottom_footer_text{

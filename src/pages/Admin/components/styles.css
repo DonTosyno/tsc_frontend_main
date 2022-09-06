@@ -1,0 +1,72 @@
+.admin_modal {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9990;
+  background: #333;
+  opacity: 0.85;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.55s ease;
+}
+
+.admin_modal_card {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  max-width: 800px;
+  background-color: #fff;
+  box-shadow: 1px -1px 4px 8px rgb(131, 126, 126);
+  border-radius: 5px;
+  transition: 0.55s ease;
+  animation: animateUp 0.75s ease;
+  padding: 10px;
+  opacity: 1;
+  z-index: 9995;
+  overflow-y: auto;
+}
+.admin_modal_card h2,
+.admin_modal_form label {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: bold;
+}
+.admin_modal_form label {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.admin_modal_form input {
+  font-size: 14px;
+  outline: none;
+  border: 1px solid rgb(208, 208, 208);
+  transition: 0.25s ease;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+}
+.admin_modal_form input:focus {
+  box-shadow: 1px 1px 10px 5px rgb(187, 216, 248);
+}
+.admin_modal_card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.admin_modal_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  width: inherit;
+}
+
+@keyframes animateUp {
+  0% {
+    transform: translate3d(0, 2.5rem, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -7,7 +7,7 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import FAQ from "./pages/FAQ";
 import ContactUs from "./pages/FAQ copy";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/LoginPage"; 
 import SignUp from "./pages/SignUpPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import CreateAccountSuccess from "./pages/CreateAccountSuccess";
@@ -25,6 +25,12 @@ import DashboardHomeSchoolPage from "./pages/SchoolDashboard/pages/Dashboard";
 import DashboardCustomersSchoolPage from './pages/SchoolDashboard/pages/Customers';
 import ProfileSchoolPage from './pages/SchoolDashboard/pages/Profile';
 import SupportSchool from "./pages/SchoolDashboard/pages/Support";
+
+// Admin Dashboard Pages
+import Admin from "./pages/Admin";
+import AdminHome from "./pages/Admin/pages/Dashboard";
+import AdminLoginPage from "./pages/AdminLoginPage";
+import AdminPendingSchools from "./pages/Admin/pages/Customers"
 import './index.css';
 import Results from "./pages/Dashboard/pages/Results";
 import Support from "./pages/Dashboard/pages/Support";
@@ -42,6 +48,7 @@ export default function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin-login" element={<AdminLoginPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signup/success" element={<CreateAccountSuccess />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -60,6 +67,14 @@ export default function App() {
            {/* <Route path="analytics" element={<PsychTest />} />
           <Route path="result" element={<Results />} /> */}
           <Route path="support" element={<SupportSchool />} />
+        </Route>
+        <Route path="/admin" element={<Admin props  />}>
+          <Route path="home" element={<AdminHome />} />
+          <Route path="schools" element={<AdminPendingSchools />} />
+          {/* <Route path="profile" element={<Profile />} />
+           <Route path="analytics" element={<PsychTest />} />
+          <Route path="result" element={<Results />} />
+          <Route path="support" element={<Support />} /> */}
         </Route>
         <Route
           path="/forgot-password/success"

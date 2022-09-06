@@ -38,6 +38,7 @@ interface DefaultErrors {
   schoolCountryError: boolean;
   schoolStateError: boolean;
   schoolPhoneNumberError: string;
+  verificationCodeError: string;
 }
 function SignUp() {
   // const navigate = useNavigate();
@@ -58,6 +59,7 @@ function SignUp() {
   const [phoneNoError, setPhoneNoError] = React.useState(false);
   const [allCountries, setAllCountries] = React.useState([]);
   const [countrySelected, setCountrySelected] = React.useState("");
+  const [verificationCodeValue, setVerificationCodeValue] = React.useState('')
   const [countrySelectedIso, setCountrySelectedIso] = React.useState("NG");
   const [statesFromSelectedCountry, setStatesFromSelectedCountry] =
     React.useState([]);
@@ -67,6 +69,7 @@ function SignUp() {
       schoolCountryError: false,
       schoolStateError: false,
       schoolPhoneNumberError: "",
+      verificationCodeError: ""
     });
   React.useEffect(() => {
     gsap.from(loginRef.current, {
@@ -86,32 +89,25 @@ function SignUp() {
     schoolName: string({
       required_error: "School Name is required",
     }).min(1),
-    schoolAddress: string().nullable(),
-    // schoolCountry: string({
-    //   required_error: "schoolCountry is required",
-    // }).min(1),
-    // schoolState: string({
-    //   required_error: "schoolState is required",
-    // }).min(1),
+    schoolAddress: string().nullable(), 
     schoolContactPerson: string({
       required_error: "schoolContactPerson is required",
-    }).min(1),
-    // schoolContactPhoneNumber: string({
-    //   required_error: "schoolContactPhoneNumber is required",
-    // }).min(1),
+    }).min(1), 
     schoolEmail: string({
       required_error: "Email is required",
     })
       .email("Not a valid")
       .min(1),
+      // verificationCode: string({
+      //   required_error: "Verification Code is required",
+      // }).min(6, "Verification Code too short- should be at least 6 characters"),
     password: string({
       required_error: "Password is required",
     }).min(6, "Password too short- should be at least 6 characters"),
     passwordConfirm: string({
       required_error: "PasswordConfirm is required",
     }),
-    // isEmailVerified: boolean().default(false).nullable(),
-  }).refine((data) => data.password === data.passwordConfirm, {
+   }).refine((data) => data.password === data.passwordConfirm, {
     message: "Password and PasswordConfirm should be same",
     path: ["passwordConfirm"],
   });
@@ -135,6 +131,7 @@ function SignUp() {
       schoolCountryError: false,
       schoolStateError: false,
       schoolPhoneNumberError: "",
+      verificationCodeError: ""
     });
     // phoneNumber;
     // countrySelected;
@@ -166,6 +163,13 @@ function SignUp() {
       setDefaultFormErrors({ ...defaultFormErrors, schoolCountryError: true });
       return;
     }
+    if (countrySelected === "") {
+      setLoading(false);
+      // console.log("country");verificationCodeError
+      // console.log(countrySelected);
+      setDefaultFormErrors({ ...defaultFormErrors, schoolCountryError: true });
+      return;
+    }
     if (stateSelected === "") {
       setLoading(false);
       // console.log("state");
@@ -177,9 +181,11 @@ function SignUp() {
 
     const formData = {
       ...data,
+      schoolEmail: data.schoolEmail.toLowerCase().trim(),
       schoolCountry: countrySelected,
       schoolState: stateSelected,
       schoolContactPhoneNumber: phoneNumber,
+      verificationCode:verificationCodeValue
     };
 
     try {
@@ -507,6 +513,7 @@ function SignUp() {
                   </div>
                 </div>
 
+           
                 <div className="form-group" style={{ marginTop: "20px" }}>
                   <input
                     {...register("password")}
@@ -543,7 +550,39 @@ function SignUp() {
                       errors.passwordConfirm.message}{" "}
                   </p>
                 </div>
-
+                <div
+                  className="form-group"
+                  style={{
+                    marginTop: "10px",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <input
+                     value={verificationCodeValue}
+                     onChange={(e) => setVerificationCodeValue(e.target.value)}
+                    type="text"
+                    className="form-control"
+                    id="exampleInputverificationCode1"
+                    aria-describedby="verificationCode"
+                    placeholder="verification Code"
+                    required
+                    min={"6"}
+                    autoComplete="off"
+                    style={{ flex: "1" }}
+                  />
+                   
+                </div>
+                {defaultFormErrors.verificationCodeError !== "" && (
+                    <p
+                      style={{
+                        color: "crimson",
+                        fontSize: "10px",
+                      }}
+                    >
+                      Verification Code is required
+                    </p>
+                  )}
                 <div style={{ textAlign: "center", marginTop: "40px" }}>
                   <button className="login_submit_button" type="submit">
                     {loading ? (

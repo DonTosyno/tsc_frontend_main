@@ -17,6 +17,22 @@ position: relative;
 position: absolute;
 top: 220px;
 left: 150px;
+background: linear-gradient(18deg, rgba(41,41,42,1) 0%, rgba(55,55,59,0.75) 36%, rgba(200,193,193,1) 100%);
+padding: 5px;
+border-radius: 5px;
+animation: backgroundfade;
+animation-delay: 2s;
+}
+
+@keyframes backgroundfade {
+    0%{
+        opacity: 0;
+        background: transparent;
+    }
+    100%{ opacity: 1;
+        background: linear-gradient(18deg, rgba(41,41,42,1) 0%, rgba(55,55,59,0.75) 36%, rgba(200,193,193,1) 100%);
+
+    }
 }
 @media screen and (max-width: 560px) {
     .get-started_content{ 
