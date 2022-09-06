@@ -84,7 +84,7 @@ function GetStarted({showModal,setShowModal,setOverflowHiddenState}:NavbarProps)
         
         className="get-started"
       >
-        <div className="get-started_content">
+        {/* <div className="get-started_content">
           <div className="get-started_content_main">
             <h2 className="hidetext" ref={getStartedRef}>
               Unlock the{" "}
@@ -113,7 +113,7 @@ function GetStarted({showModal,setShowModal,setOverflowHiddenState}:NavbarProps)
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="get-started_img" ref={getStartedImgRef}>
           <img src={logoImg} alt="logo" />
         </div>
