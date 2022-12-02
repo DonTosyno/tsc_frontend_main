@@ -79,7 +79,7 @@ function About() {
                     The Scholars Career was founded to solve this problem. We
                     have a team of skilled personnel that enable the smooth
                     running of the program which is powered by Artificial
-                    Intellogence. Partnership with leading education, training
+                    Intelligence. Partnership with leading education, training
                     and counselling organization will help move our users into
                     the roles where their skill is most suited, and their
                     aspirations are best met.

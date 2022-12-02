@@ -74,6 +74,7 @@ function LoginPage() {
     setFormErrorMessage(""); 
     const userForm = {
       ...data,
+      email: data.email.toLowerCase().trim(),
       userType:
         userType === "Student"
           ? "student"
