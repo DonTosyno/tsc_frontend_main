@@ -18,7 +18,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-const TOTAL_TEST_QUESTIONS = 48;
+const questionsVersion = process.env.REACT_APP_QUESTIONS_VERSION || "V1"
+const TOTAL_TEST_QUESTIONS = questionsVersion === "V2" ? 42 : 48;
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -166,7 +167,9 @@ const Dashboard = () => {
                 if (psychTest) {
                   setPsychQuestions(psychTest.questions);
                   setIsTestCompleted(psychTest.isTestCompleted);
-                  // console.log(psychTest.questions);
+                  console.log( "percentage ohhh",psychTest.questions.length);
+                  console.log( "percentage ohhh",TOTAL_TEST_QUESTIONS);
+                  console.log( "percentage ohhh",psychTest.questions.length / TOTAL_TEST_QUESTIONS);
                   setProgressBar({
                     ...progressBar,
                     percent: psychTest.questions.length / TOTAL_TEST_QUESTIONS,

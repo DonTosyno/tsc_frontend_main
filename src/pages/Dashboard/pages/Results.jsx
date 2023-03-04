@@ -124,7 +124,9 @@ const renderOrderBody = (item, index) => (
 );
 
 const Results = () => {
-  const TOTAL_TEST_QUESTIONS = 48;
+  const questionsVersion = process.env.REACT_APP_QUESTIONS_VERSION || "V1";
+  const TOTAL_TEST_QUESTIONS = questionsVersion === "V2" ? 42 : 48;
+  console.log("TOTAL_TEST_QUESTIONS =>>>",TOTAL_TEST_QUESTIONS)
   const dateOptions = {
     weekday: "long",
     year: "numeric",
@@ -324,6 +326,8 @@ const Results = () => {
               if (psychTest) {
                 setPsychQuestions(psychTest.questions);
                 setIsTestCompleted(psychTest.isTestCompleted);
+                console.log("TOTAL_TEST_QUESTIONS =>>>",TOTAL_TEST_QUESTIONS)
+                console.log("psychTest =>>>",psychTest.questions.length)
               }
 
               if (

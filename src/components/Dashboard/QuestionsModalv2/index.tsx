@@ -58,7 +58,7 @@ interface NavbarProps {
   >;
   refresh: boolean;
 }
-function SampleTestModal({
+function QuestionsModalv2({
   showModal,
   setShowModal,
   setOverflowHiddenState,
@@ -67,10 +67,10 @@ function SampleTestModal({
   setCurrentQuestionDetails,
   setRefresh,
   refresh,
-}: NavbarProps) {  
-  
-const questionsVersion = process.env.QUESTIONS_VERSION || "V1"
-const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
+}: NavbarProps) {
+  const questionsVersion = process.env.REACT_APP_QUESTIONS_VERSION || "V1";
+  const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
+  console.log("question verison =>>>>", questionsVersion);
   const accessToken = localStorage.getItem("accessToken");
   const [isTestStarted, setIsTestStarted] = useState(true);
   const [isTestFinished, setIsTestFinished] = useState(false);
@@ -95,18 +95,18 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
       text: "Strongly Dislike",
       isSelected: false,
     },
-    optionB: {
-      text: "Dislike",
-      isSelected: false,
-    },
-    optionC: {
-      text: "Neither Like Nor Dislike",
-      isSelected: false,
-    },
-    optionD: {
-      text: "Like",
-      isSelected: false,
-    },
+    // optionB: {
+    //   text: "Dislike",
+    //   isSelected: false,
+    // },
+    // optionC: {
+    //   text: "Neither Like Nor Dislike",
+    //   isSelected: false,
+    // },
+    // optionD: {
+    //   text: "Like",
+    //   isSelected: false,
+    // },
     optionE: {
       text: "Strongly Like",
       isSelected: false,
@@ -128,13 +128,14 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
   const updatedTestCompletedToTrue = async () => {
     // setIsTestFinished(true);
     // setIsTestStarted(false);
-    if (!accessToken){
-      navigate('/login')
+    if (!accessToken) {
+      navigate("/login");
     } else {
       try {
         axios
           .post(
-            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/submitTest/`+accessToken,
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/submitTest/` +
+              accessToken,
             {},
             { withCredentials: true }
           )
@@ -150,7 +151,7 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
             ) {
               // console.log(res.data.message);
             }
-  
+
             if (res.data) {
               // // console.log("submitTest function ");
               const { psychTest, currentQuestionDetails: detailsFromResponse } =
@@ -166,7 +167,7 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
                   setIsTestStarted(false);
                 }
               }
-              
+
               if (
                 location.pathname === "/dashboard/" ||
                 location.pathname === "/dashboard"
@@ -180,63 +181,63 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
         console.log(error);
       }
     }
-   
-  }
+  };
   const getUserResult = async () => {
-    if (!accessToken){
-      navigate('/login')
+    if (!accessToken) {
+      navigate("/login");
     } else {
-    try {
-      axios
-        .get(
-          `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/`+accessToken,
-          { withCredentials: true }
-        )
-        .then((res: any) => {
-          // // console.log(res);
-          if (res.status === 403) {
-            navigate("/login");
-          }
-          if (
-            res.data.statusCode === 409 ||
-            res.data.statusCode === 401 ||
-            res.data.statusCode === 400
-          ) {
-            // console.log(res.data.message);
-          }
-
-          if (res.data) {
-            // // console.log("getUserResult function ");
-            const { psychTest, currentQuestionDetails: detailsFromResponse } =
-              res.data;
-
-            if (psychTest) {
-              // // console.log(psychTest);
-              // // console.log(psychTest.questions.length);
-              setQuestionsInModal(psychTest.questions);
-              if (psychTest.isTestCompleted) {
-                // // console.log("completed questions");
-                setIsTestFinished(true);
-                setIsTestStarted(false);
-              }
-            }
-            if (detailsFromResponse) {
-              // // console.log(detailsFromResponse);
-              setQuestionDetailsInState(detailsFromResponse);
+      try {
+        axios
+          .get(
+            `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/getUserResult/` +
+              accessToken,
+            { withCredentials: true }
+          )
+          .then((res: any) => {
+            // // console.log(res);
+            if (res.status === 403) {
+              navigate("/login");
             }
             if (
-              location.pathname === "/dashboard/" ||
-              location.pathname === "/dashboard"
+              res.data.statusCode === 409 ||
+              res.data.statusCode === 401 ||
+              res.data.statusCode === 400
             ) {
-              navigate("/dashboard/home");
+              // console.log(res.data.message);
             }
-          }
-        });
-    } catch (error) {
-      // console.log("error");
-      // console.log(error);
+
+            if (res.data) {
+              // // console.log("getUserResult function ");
+              const { psychTest, currentQuestionDetails: detailsFromResponse } =
+                res.data;
+
+              if (psychTest) {
+                // // console.log(psychTest);
+                // // console.log(psychTest.questions.length);
+                setQuestionsInModal(psychTest.questions);
+                if (psychTest.isTestCompleted) {
+                  // // console.log("completed questions");
+                  setIsTestFinished(true);
+                  setIsTestStarted(false);
+                }
+              }
+              if (detailsFromResponse) {
+                // // console.log(detailsFromResponse);
+                setQuestionDetailsInState(detailsFromResponse);
+              }
+              if (
+                location.pathname === "/dashboard/" ||
+                location.pathname === "/dashboard"
+              ) {
+                navigate("/dashboard/home");
+              }
+            }
+          });
+      } catch (error) {
+        // console.log("error");
+        // console.log(error);
+      }
     }
-  }
   };
   const getPreviousQuestions = async () => {
     setNextQuestionAllowedToSubmit(false);
@@ -249,24 +250,24 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
           questionsInModal[questionDetailsInState.questionId - 2].answer ===
           "Strongly Dislike",
       },
-      optionB: {
-        text: "Dislike",
-        isSelected:
-          questionsInModal[questionDetailsInState.questionId - 2].answer ===
-          "Dislike",
-      },
-      optionC: {
-        text: "Neither Like Nor Dislike",
-        isSelected:
-          questionsInModal[questionDetailsInState.questionId - 2].answer ===
-          "Neither Like Nor Dislike",
-      },
-      optionD: {
-        text: "Like",
-        isSelected:
-          questionsInModal[questionDetailsInState.questionId - 2].answer ===
-          "Like",
-      },
+      // optionB: {
+      //   text: "Dislike",
+      //   isSelected:
+      //     questionsInModal[questionDetailsInState.questionId - 2].answer ===
+      //     "Dislike",
+      // },
+      // optionC: {
+      //   text: "Neither Like Nor Dislike",
+      //   isSelected:
+      //     questionsInModal[questionDetailsInState.questionId - 2].answer ===
+      //     "Neither Like Nor Dislike",
+      // },
+      // optionD: {
+      //   text: "Like",
+      //   isSelected:
+      //     questionsInModal[questionDetailsInState.questionId - 2].answer ===
+      //     "Like",
+      // },
       optionE: {
         text: "Strongly Like",
         isSelected:
@@ -309,19 +310,19 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
           text: "Strongly Dislike",
           isSelected: isNextQuestionAnswered[0].answer === "Strongly Dislike",
         },
-        optionB: {
-          text: "Dislike",
-          isSelected: isNextQuestionAnswered[0].answer === "Dislike",
-        },
-        optionC: {
-          text: "Neither Like Nor Dislike",
-          isSelected:
-            isNextQuestionAnswered[0].answer === "Neither Like Nor Dislike",
-        },
-        optionD: {
-          text: "Like",
-          isSelected: isNextQuestionAnswered[0].answer === "Like",
-        },
+        // optionB: {
+        //   text: "Dislike",
+        //   isSelected: isNextQuestionAnswered[0].answer === "Dislike",
+        // },
+        // optionC: {
+        //   text: "Neither Like Nor Dislike",
+        //   isSelected:
+        //     isNextQuestionAnswered[0].answer === "Neither Like Nor Dislike",
+        // },
+        // optionD: {
+        //   text: "Like",
+        //   isSelected: isNextQuestionAnswered[0].answer === "Like",
+        // },
         optionE: {
           text: "Strongly Like",
           isSelected: isNextQuestionAnswered[0].answer === "Strongly Like",
@@ -331,74 +332,75 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
     } else if (isNextQuestionAnswered.length === 0) {
       if (nextQuestionAllowedToSubmit) {
         // // console.log("submit now");
-        if (!accessToken){
-          navigate('/login')
+        if (!accessToken) {
+          navigate("/login");
         } else {
-        try {
-          axios
-            .post(
-              `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/updateUserTest/`+ accessToken,
-              {
-                ...questionDetailsInState,
-                answer: value,
-              },
-              { withCredentials: true }
-            )
-            .then((res) => {
-              // // console.log(res);
-              if (res.status === 403) {
-                navigate("/login");
-              }
-              if (
-                res.data.statusCode === 409 ||
-                res.data.statusCode === 401 ||
-                res.data.statusCode === 400
-              ) {
-                 navigate("/login");
-                // // console.log(res.data.message);
-              }
-
-              if (res.data) {
-                // // console.log("updateQuestions function");
-                // // console.log(res.data);
-                // setRefresh(!refresh);
-                getUserResult();
-                setOptionsObject({
-                  optionA: {
-                    text: "Strongly Dislike",
-                    isSelected: false,
-                  },
-                  optionB: {
-                    text: "Dislike",
-                    isSelected: false,
-                  },
-                  optionC: {
-                    text: "Neither Like Nor Dislike",
-                    isSelected: false,
-                  },
-                  optionD: {
-                    text: "Like",
-                    isSelected: false,
-                  },
-                  optionE: {
-                    text: "Strongly Like",
-                    isSelected: false,
-                  },
-                });
-
-                if (
-                  location.pathname === "/dashboard/" ||
-                  location.pathname === "/dashboard"
-                ) {
-                  navigate("/dashboard/home");
+          try {
+            axios
+              .post(
+                `${process.env.REACT_APP_PUBLIC_SERVER_ENDPOINT}/api/student/updateUserTest/` +
+                  accessToken,
+                {
+                  ...questionDetailsInState,
+                  answer: value,
+                },
+                { withCredentials: true }
+              )
+              .then((res) => {
+                // // console.log(res);
+                if (res.status === 403) {
+                  navigate("/login");
                 }
-              }
-            });
-        } catch (error) {
-          // console.log("error");
-          // console.log(error);
+                if (
+                  res.data.statusCode === 409 ||
+                  res.data.statusCode === 401 ||
+                  res.data.statusCode === 400
+                ) {
+                  navigate("/login");
+                  // // console.log(res.data.message);
+                }
+
+                if (res.data) {
+                  // // console.log("updateQuestions function");
+                  // // console.log(res.data);
+                  // setRefresh(!refresh);
+                  getUserResult();
+                  setOptionsObject({
+                    optionA: {
+                      text: "Strongly Dislike",
+                      isSelected: false,
+                    },
+                    // optionB: {
+                    //   text: "Dislike",
+                    //   isSelected: false,
+                    // },
+                    // optionC: {
+                    //   text: "Neither Like Nor Dislike",
+                    //   isSelected: false,
+                    // },
+                    // optionD: {
+                    //   text: "Like",
+                    //   isSelected: false,
+                    // },
+                    optionE: {
+                      text: "Strongly Like",
+                      isSelected: false,
+                    },
+                  });
+
+                  if (
+                    location.pathname === "/dashboard/" ||
+                    location.pathname === "/dashboard"
+                  ) {
+                    navigate("/dashboard/home");
+                  }
+                }
+              });
+          } catch (error) {
+            // console.log("error");
+            // console.log(error);
+          }
         }
-      }
       } else {
         setNextQuestionAllowedToSubmit(true);
         getUserResult();
@@ -413,18 +415,18 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
             text: "Strongly Dislike",
             isSelected: false,
           },
-          optionB: {
-            text: "Dislike",
-            isSelected: false,
-          },
-          optionC: {
-            text: "Neither Like Nor Dislike",
-            isSelected: false,
-          },
-          optionD: {
-            text: "Like",
-            isSelected: false,
-          },
+          // optionB: {
+          //   text: "Dislike",
+          //   isSelected: false,
+          // },
+          // optionC: {
+          //   text: "Neither Like Nor Dislike",
+          //   isSelected: false,
+          // },
+          // optionD: {
+          //   text: "Like",
+          //   isSelected: false,
+          // },
           optionE: {
             text: "Strongly Like",
             isSelected: false,
@@ -519,62 +521,104 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
               >
                 <div className="questionOptionsBox">
                   <p>{questionDetailsInState.questionText}</p>
-                 {
-                 questionsInModal.length <  TOTAL_QUESTION_LENGTH && (
-<div>
-                  <div
+                  {questionsInModal.length < TOTAL_QUESTION_LENGTH && (
+                    <div>
+                      <div
+                        className="questionOptions"
+                        onClick={() => {
+                          setOptionsObject({
+                            optionA: {
+                              text: "Strongly Dislike",
+                              isSelected: false,
+                            },
+                            // optionB: {
+                            //   text: "Dislike",
+                            //   isSelected: false,
+                            // },
+                            // optionC: {
+                            //   text: "Neither Like Nor Dislike",
+                            //   isSelected: false,
+                            // },
+                            // optionD: {
+                            //   text: "Like",
+                            //   isSelected: false,
+                            // },
+                            optionE: {
+                              text: "Strongly Like",
+                              isSelected: true,
+                            },
+                          });
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={optionsObject.optionE.isSelected}
+                        />
+                        <label>
+                          {" "}
+                          {optionsObject.optionE.text === "Strongly Dislike"
+                            ? "No"
+                            : "Yes"}
+                        </label>
+                      </div>
+                      <div
+                        className="questionOptions"
+                        onClick={() => {
+                          setOptionsObject({
+                            optionA: {
+                              text: "Strongly Dislike",
+                              isSelected: true,
+                            },
+                            // optionB: {
+                            //   text: "Dislike",
+                            //   isSelected: false,
+                            // },
+                            // optionC: {
+                            //   text: "Neither Like Nor Dislike",
+                            //   isSelected: false,
+                            // },
+                            // optionD: {
+                            //   text: "Like",
+                            //   isSelected: false,
+                            // },
+                            optionE: {
+                              text: "Strongly Like",
+                              isSelected: false,
+                            },
+                          });
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={optionsObject.optionA.isSelected}
+                        />
+                        <label>
+                          {" "}
+                          {optionsObject.optionA.text === "Strongly Dislike"
+                            ? "No"
+                            : "Yes"}
+                        </label>
+                      </div>
+                      {/* <div
                     className="questionOptions"
                     onClick={() => {
                       setOptionsObject({
                         optionA: {
                           text: "Strongly Dislike",
-                          isSelected: true,
-                        },
-                        optionB: {
-                          text: "Dislike",
                           isSelected: false,
                         },
-                        optionC: {
-                          text: "Neither Like Nor Dislike",
-                          isSelected: false,
-                        },
-                        optionD: {
-                          text: "Like",
-                          isSelected: false,
-                        },
-                        optionE: {
-                          text: "Strongly Like",
-                          isSelected: false,
-                        },
-                      });
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={optionsObject.optionA.isSelected}
-                    />
-                    <label> {optionsObject.optionA.text}</label>
-                  </div>
-                  <div
-                    className="questionOptions"
-                    onClick={() => {
-                      setOptionsObject({
-                        optionA: {
-                          text: "Strongly Dislike",
-                          isSelected: false,
-                        },
-                        optionB: {
-                          text: "Dislike",
-                          isSelected: true,
-                        },
-                        optionC: {
-                          text: "Neither Like Nor Dislike",
-                          isSelected: false,
-                        },
-                        optionD: {
-                          text: "Like",
-                          isSelected: false,
-                        },
+                        // optionB: {
+                        //   text: "Dislike",
+                        //   isSelected: true,
+                        // },
+                        // optionC: {
+                        //   text: "Neither Like Nor Dislike",
+                        //   isSelected: false,
+                        // },
+                        // optionD: {
+                        //   text: "Like",
+                        //   isSelected: false,
+                        // },
                         optionE: {
                           text: "Strongly Like",
                           isSelected: false,
@@ -587,8 +631,8 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
                       checked={optionsObject.optionB.isSelected}
                     />
                     <label> {optionsObject.optionB.text}</label>
-                  </div>
-                  <div
+                  </div> */}
+                      {/* <div
                     className="questionOptions"
                     onClick={() => {
                       setOptionsObject({
@@ -620,8 +664,8 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
                       checked={optionsObject.optionC.isSelected}
                     />
                     <label> {optionsObject.optionC.text}</label>
-                  </div>
-                  <div
+                  </div> */}
+                      {/* <div
                     className="questionOptions"
                     onClick={() => {
                       setOptionsObject({
@@ -653,45 +697,9 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
                       checked={optionsObject.optionD.isSelected}
                     />
                     <label> {optionsObject.optionD.text}</label>
-                  </div>
-                  <div
-                    className="questionOptions"
-                    onClick={() => {
-                      setOptionsObject({
-                        optionA: {
-                          text: "Strongly Dislike",
-                          isSelected: false,
-                        },
-                        optionB: {
-                          text: "Dislike",
-                          isSelected: false,
-                        },
-                        optionC: {
-                          text: "Neither Like Nor Dislike",
-                          isSelected: false,
-                        },
-                        optionD: {
-                          text: "Like",
-                          isSelected: false,
-                        },
-                        optionE: {
-                          text: "Strongly Like",
-                          isSelected: true,
-                        },
-                      });
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={optionsObject.optionE.isSelected}
-                    />
-                    <label> {optionsObject.optionE.text}</label>
-                  </div>
-                  
-
-                  </div>
-                  )
-                 }  
+                  </div> */}
+                    </div>
+                  )}
                 </div>
                 <div className="sampleQuestionButtonControls">
                   {questionsInModal.length > 0 &&
@@ -707,21 +715,23 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
                       </button>
                     )}
 
-                 { questionsInModal.length <  TOTAL_QUESTION_LENGTH && <button
-                    className="login_submit_button"
-                    onClick={() => {
-                      handleSubmitQuestion();
-                      //  setCurrentQuestion(index + 1)
-                    }}
-                  >
-                    Next
-                  </button>}
+                  {questionsInModal.length < TOTAL_QUESTION_LENGTH && (
+                    <button
+                      className="login_submit_button"
+                      onClick={() => {
+                        handleSubmitQuestion();
+                        //  setCurrentQuestion(index + 1)
+                      }}
+                    >
+                      Next
+                    </button>
+                  )}
 
                   {questionsInModal.length >= TOTAL_QUESTION_LENGTH && (
                     <button
                       className="login_submit_button"
                       onClick={() => {
-                        updatedTestCompletedToTrue() 
+                        updatedTestCompletedToTrue();
                       }}
                     >
                       Submit
@@ -743,11 +753,12 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
                 ? "sampleModalContainer"
                 : "sampleModalContainer hidden"
             }
-      
           >
-           { !isTestFinished && <div className="containerLeft" data-aos="fade-right">
-              <img src={face8} alt="face" />
-            </div>}
+            {!isTestFinished && (
+              <div className="containerLeft" data-aos="fade-right">
+                <img src={face8} alt="face" />
+              </div>
+            )}
             <div className="containerRight" style={{ flex: "1" }}>
               <div
                 className="explore_section_right"
@@ -768,7 +779,7 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
                 >
                   <Icon name="delete" color="#fff" size={24} />
                 </p>
-                <div className="explore_section_right_content" >
+                <div className="explore_section_right_content">
                   {!isTestFinished ? (
                     <h2>
                       Go ahead,
@@ -801,4 +812,4 @@ const TOTAL_QUESTION_LENGTH = questionsVersion === "V2" ? 42 : 48;
   );
 }
 
-export default SampleTestModal;
+export default QuestionsModalv2;
