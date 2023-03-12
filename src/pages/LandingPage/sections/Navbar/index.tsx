@@ -40,7 +40,7 @@ function Navbar({setShowModal,setOverflowHiddenState}:NavbarProps) {
             </Link>
             <Link to="/contact" className="navbar_links">
               Contact Us
-            </Link>
+            </Link> 
           </ul>
           {/* <div className="search-icon nav-nav_links">
             <Icon name="search" color="#000" size={24} />
@@ -92,9 +92,9 @@ function Navbar({setShowModal,setOverflowHiddenState}:NavbarProps) {
           </li>
           <li className="hamburger-icon-dropdown-item">
           { !accessToken ?
-          <Link to="/login" className="navbar_links nav-nav_links">
+          <Link to="/login" className="mobile-link">
           Log In
-        </Link> : <Link to={userType === "Student" ? "/dashboard/home": "/school/home" }className="navbar_links nav-nav_links">
+        </Link> : <Link to={userType === "Student" ? "/dashboard/home": "/school/home" }className="mobile-link">
           Dashboard
         </Link>
 }

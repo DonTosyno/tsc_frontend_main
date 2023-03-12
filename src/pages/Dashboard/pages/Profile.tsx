@@ -54,7 +54,8 @@ function Profile() {
   }
   const getLoggedInUser = () => {
     if (!accessToken) {
-      navigate("/login");
+          navigate("/login?token_value=null");
+          return;
     } else { 
     try {
       axios
@@ -66,14 +67,16 @@ function Profile() {
           // // console.log(res);
 
           if (res.status === 403) {
-            navigate("/login");
+                navigate("/login?token_value=null");
+                return;
           }
           if (
-            res.data.statusCode === 409 ||
+            res.data.statusCode === 403 ||
             res.data.statusCode === 401 ||
             res.data.statusCode === 400
           ) {
-            // // console.log(res.data.message);
+            navigate("/login?token_value=null");
+            return;
           }
 
           if (res.data) {
@@ -92,7 +95,8 @@ function Profile() {
               phoneNumber: "",
             };
             if (res.data.statusCode === 403) {
-              navigate("/login");
+                  navigate("/login?token_value=null");
+                  return;
             } else {
               setUserData(data);
               getStudentSchoolBySchoolId(res.data.school);
@@ -114,7 +118,8 @@ function Profile() {
 
   const getUserProfilePicture = () => {
     if (!accessToken) {
-      navigate("/login");
+          navigate("/login?token_value=null");
+          return;
     } else {
     try {
       axios
@@ -126,7 +131,8 @@ function Profile() {
           // // console.log(res);
 
           if (res.status === 403) {
-            navigate("/login");
+                navigate("/login?token_value=null");
+                return;
           }
           if (
             res.data.statusCode === 409 ||
@@ -148,7 +154,8 @@ function Profile() {
             }
 
             if (res.data.statusCode === 403) {
-              navigate("/login");
+                  navigate("/login?token_value=null");
+                  return;
             } else {
               // setProfilePictureUrl(formattedString);
               // setUserData(data);
@@ -195,7 +202,8 @@ function Profile() {
       return;
     }
     if (!accessToken) {
-      navigate("/login");
+          navigate("/login?token_value=null");
+          return;
     } else {
     try {
       axios
@@ -208,7 +216,8 @@ function Profile() {
           // // console.log(res);
 
           if (res.status === 403) {
-            navigate("/login");
+                navigate("/login?token_value=null");
+                return;
           }
           if (
             res.data.statusCode === 409 ||
@@ -223,7 +232,8 @@ function Profile() {
             // // console.log(res.data);
 
             if (res.data.statusCode === 403) {
-              navigate("/login");
+                  navigate("/login?token_value=null");
+                  return;
             } else {
               if (res.data.statusCode === 200) {
                 notifyMsg('Profile Picture Updated Successfully');
@@ -272,7 +282,7 @@ function Profile() {
                 </h2>
                 <p>{schoolName}</p>
               </div>
-              <div className="profile-container__left__image">
+              <div className="profile-container__left__image profileImgContainer">
                 <img
                   src={
                     uploadedImg.imagePreviewUrl !== ""

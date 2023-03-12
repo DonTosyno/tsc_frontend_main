@@ -109,7 +109,7 @@ function ContactUs() {
         <h3 style={{ marginTop: "80px" }}>Contact us</h3>
         <hr />
       </div>
-      <div className="container">
+      <div className="container contactUsMainDiv">
         <div className="row">
           <div className="col-md-6">
             <p style={{ marginBottom: "5px" }}>
@@ -119,6 +119,10 @@ function ContactUs() {
             <p>
               <i className="fa fa-envelope-square"></i>
               <strong>&nbsp;Email:</strong>&nbsp;thescholarscareers@gmail.com  
+            </p>
+            <p>
+              <i className="fa fa-map-marker"></i>
+              <strong>&nbsp;Address:</strong>&nbsp;Lagos, Nigeria
             </p>
             <p>
               <i className="fa fa-envelope"></i>
@@ -131,24 +135,20 @@ function ContactUs() {
             </p>
           </div>
           <div className="col-md-6">
-            <p>
-              <i className="fa fa-map-marker"></i>
-              <strong>&nbsp;Address:</strong>&nbsp;Lagos, Nigeria
-            </p>
+         
           </div>
         </div>
       </div>
       <div className="container" style={{ margin: "55px auto" }}>
         <div
-          className="row"
+          className="row contactUsFormContainer"
           style={{
             display: "flex",
-            flexDirection: "row",
             justifyContent: "space-between",
           }}
         >
           <div className="col-md-6">
-            <div className="vstack">
+            <div>
               <section className="contact-clean">
                 <form method="post" onSubmit={sendContactMail}>
                   <h2 className="text-center" style={{ fontSize: "18px" }}>

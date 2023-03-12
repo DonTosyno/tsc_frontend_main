@@ -23,6 +23,54 @@
 .dashboardCardsMain > * {
   width: 300px;
 }
+
+@media screen and (max-width: 900px) {
+  .topLevelCards {
+    flex-direction: column; 
+    /* border: 1px solid magenta; */
+    width: 100%;
+    min-width: 400px;
+  } 
+  .dashboardChart{
+    /* border: 1px solid rebeccapurple; */
+    min-width: 400px;
+    min-height: 500px;
+    margin-left: -20px;
+    padding: 0;
+  }
+  .dashboardCardsContainer{
+    flex-direction: column;
+    overflow: auto;
+    /* border: 1px solid green; */
+    width: 100%;
+  }
+ 
+}
+
+@media screen and (max-width: 620px) {
+  .topLevelCards {
+    flex-direction: column; 
+    /* border: 1px solid magenta; */
+    width: 100%;
+    min-width:300px;
+  } 
+  .dashboardChart{
+    /* border: 1px solid rebeccapurple; */
+    
+    min-height: 300px;
+    margin-left: -20px;
+    padding: 0;
+  }
+  .dashboardCardsContainer{
+    flex-direction: column;
+    /* overflow: hidden;
+    border: 1px solid green;  */
+  }
+
+  .dashboardCardsContainer *{
+    width: 100%;
+  }
+}
 @media screen and (max-width: 1300px) {
   .dashboardCardsMain {
     flex-direction: column;
@@ -215,6 +263,32 @@
 }
 
 /* QUERIES */
+@media screen and (max-width: 1000px) {
+  .layout__content{ 
+/* border: 1px solid orange; */
+margin: 0;
+margin-left: -22%;
+padding: 0;
+  }
+
+  .sidebar__item span{
+      display: none;
+  }
+}
+@media screen and (max-width: 650px) {
+  .layout__content{ 
+/* border: 1px solid orange; */
+margin: 0;
+margin-left: -32%;
+padding: 0;
+  }
+
+  .sidebar__item span{
+      display: none;
+  }
+}
+
+
 @media screen and (max-width: 868px) {
   .profile-container {
     display: flex;
@@ -225,5 +299,40 @@
 @media screen and (max-width: 780px) {
   .container_right_top form {
     grid-template-columns: 1fr;
+  }
+}
+
+/* MOBILE SCREENS */
+@media screen and (max-width: 450px) {
+  .dashboardMainContainer{ 
+/* border: 1px solid orange; */
+margin: 0;
+margin-left: -32%;
+padding: 0;
+overflow: auto;
+  }
+
+  .container_left_top  {
+    display: flex;
+     flex-direction: column-reverse;
+     position: relative;
+     
+  }
+  .profileImgContainer{
+    max-width: 50px; 
+    max-height: 50px;
+    position: relative;
+    display: none; 
+  }
+  
+  .profileImgContainer img {
+    max-width: 50px; 
+  }
+
+  .container_right_top {
+    overflow: auto;
+  } 
+  .topLevelCardsContainer{
+    overflow: auto;
   }
 }

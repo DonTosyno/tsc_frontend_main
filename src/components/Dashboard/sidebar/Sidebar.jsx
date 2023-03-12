@@ -36,7 +36,7 @@ const Sidebar = ({ props }) => {
   };
   // // console.log(activeItem)
   return (
-    <div className="sidebar">
+    <div className="sidebar sidebarResponsive">
       <div className="sidebar__logo">
         <img src={logo} alt="company logo" />
       </div>
@@ -52,7 +52,7 @@ const Sidebar = ({ props }) => {
         )
       )}
       <div onClick={() => handleLogOut()} style={{ cursor: "pointer" }}>
-        <SidebarItem title={"Log out"} icon={""} active={false} />
+        <SidebarItem title={"Log out"} icon={"bx bx-home"} active={false} />
       </div>
     </div>
   );

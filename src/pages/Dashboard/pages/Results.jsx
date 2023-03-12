@@ -496,7 +496,7 @@ const Results = () => {
     },
   };
   return (
-    <div>
+    <div className="topLevelCardsContainer">
       <h2 className="page-header">Results</h2>
       <div className="row">
         <div className="col-6" style={{ position: "relative", zIndex: "9000" }}>
@@ -522,7 +522,7 @@ const Results = () => {
               .
             </div>
           )}
-          <div className="card full-height" style={{ maxHeight: "70vh" }}>
+          <div className="card full-height dashboardChart" style={{ maxHeight: "70vh" }}>
             {/* chart */}
             <Chart
               options={
@@ -542,7 +542,7 @@ const Results = () => {
             />
           </div>
         </div>
-        <div className="col-6" style={{ position: "relative", zIndex: "9000" }}>
+        <div className="col-6 topLevelCards" style={{ position: "relative", zIndex: "9000" }}>
           {psychQuestions.length !== TOTAL_TEST_QUESTIONS && (
             <div
               style={{
@@ -565,7 +565,7 @@ const Results = () => {
               .
             </div>
           )}
-          <div className="card full-height">
+          <div className="card full-height dashboardChart">
             {/* chart */}
             <Chart
               options={

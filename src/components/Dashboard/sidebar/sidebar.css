@@ -8,11 +8,23 @@
     box-shadow: var(--box-shadow);
     z-index: 9979;
 }
-
+.sidebarResponsive{
+    transition: 0.45s ease;
+}
 @media screen and (max-width: 480px) {
     .sidebar{
         min-width: none;
         width: 240px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .sidebarResponsive{ 
+       max-width: 120px;
+       overflow: hidden;
+    }
+
+    .sidebar__item span{
+        display: none;
     }
 }
 

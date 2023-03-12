@@ -84,6 +84,15 @@ function Navbar() {
               Contact Us
             </Link>
           </li>
+          <li className="hamburger-icon-dropdown-item">
+          { !accessToken ?
+          <Link to="/login" className="mobile-link">
+          Log In
+        </Link> : <Link to={userType === "Student" ? "/dashboard/home": "/school/home" }className="mobile-link">
+          Dashboard
+        </Link>
+}
+          </li>
         </ul>
       )}
     </div>

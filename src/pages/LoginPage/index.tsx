@@ -46,6 +46,11 @@ function LoginPage() {
     if (queryParam && queryParam.email) {
       notifyMsg('Email Verification Successful. Please Log In')
   }},[])
+
+  useEffect(() => {
+    if (queryParam && queryParam.token_value) {
+      notifyMsg('Session Expired. Please Log In')
+  }},[])
   const handleCookie = (accessToken: string, refreshToken: string) => {
    
     localStorage.setItem("accessToken", accessToken);

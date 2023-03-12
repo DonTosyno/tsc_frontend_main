@@ -1,0 +1,14 @@
+@media screen and (max-width: 968px) {
+    .contactUsFormContainer{
+        flex-direction: column;
+    }  
+    
+
+    .contactUsMainDiv .col-md-6{
+        width: 100%;;
+    
+    } 
+    .contactUsFormContainer .col-md-6{
+        width: 100%;
+    }
+}

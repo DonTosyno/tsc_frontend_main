@@ -140,7 +140,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getDashboardDetails = async () => {
       if (!accessToken) {
-        navigate("/login");
+            navigate("/login?token_value=null");
       } else {
         try {
           axios
@@ -149,11 +149,13 @@ const Dashboard = () => {
               { withCredentials: true }
             )
             .then((res) => {
+              console.log("response status =>>>", res.data)
               if (res.status === 403) {
-                navigate("/login");
+                navigate("/login?token_value=null");
+                return;
               }
               if (
-                res.data.statusCode === 409 ||
+                res.data.statusCode === 403 ||
                 res.data.statusCode === 401 ||
                 res.data.statusCode === 400
               ) {
@@ -186,14 +188,14 @@ const Dashboard = () => {
               }
             });
         } catch (error) {
-          // console.log("error");
-          // console.log(error && error.message);
+          console.log("error ==>>>>>>>>>>>>>>.",error);
+          console.log(error);
         }
       }
     };
     const getStudentCareers = async (acronym) => {
       if (!accessToken) {
-        navigate("/login");
+            navigate("/login?token_value=null");
       } else {
         try {
           axios
@@ -204,13 +206,13 @@ const Dashboard = () => {
             )
             .then((res) => {
               if (res.status === 403) {
-                navigate("/login");
+                    navigate("/login?token_value=null");
               }
               if (
-                res.data.statusCode === 409 ||
-                res.data.statusCode === 401 ||
-                res.data.statusCode === 400
+                res.data.statusCode === 403  
               ) {
+                navigate("/login?token_value=null");
+                return;
                 // console.log(res.data.message);
               }
 
@@ -234,7 +236,7 @@ const Dashboard = () => {
     };
     const getUserResult = async () => {
       if (!accessToken) {
-        navigate("/login");
+            navigate("/login?token_value=null");
       } else {
         try {
           axios
@@ -245,14 +247,15 @@ const Dashboard = () => {
             .then((res) => {
               // // console.log(res);
               if (res.status === 403) {
-                navigate("/login");
+                    navigate("/login?token_value=null");
               }
               if (
-                res.data.statusCode === 409 ||
+                res.data.statusCode === 403 ||
                 res.data.statusCode === 401 ||
                 res.data.statusCode === 400
               ) {
-                // console.log(res.data.message);
+                navigate("/login?token_value=null");
+                return;
               }
 
               if (res.data) {
@@ -328,7 +331,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getTemperaments = async () => {
       if (!accessToken) {
-        navigate("/login");
+            navigate("/login?token_value=null");
       } else {
         try {
           axios
@@ -342,14 +345,16 @@ const Dashboard = () => {
             .then((res) => {
               // // console.log(res);
               if (res.status === 403) {
-                navigate("/login");
+                    navigate("/login?token_value=null");
               }
               if (
-                res.data.statusCode === 409 ||
+                res.data.statusCode === 403 ||
                 res.data.statusCode === 401 ||
-                res.data.statusCode === 400
+                res.data.statusCode === 400 ||
+                res.status === 403
               ) {
-                // console.log(res.data.message);
+                navigate("/login?token_value=null");
+                return;
               }
 
               if (res.data) {
@@ -357,10 +362,9 @@ const Dashboard = () => {
                 // // console.log(res.data);
                 if (res.data !== null) {
                   if (
-                    res.data.statusCode === 409 ||
-                    res.data.statusCode === 401 ||
                     res.data.statusCode === 403 ||
-                    res.status === 403
+                    res.data.statusCode === 401 ||
+                    res.data.statusCode === 403 
                   ) {
                     // console.log(res.data.message);
                   } else if (res.data && res.data.temperaments.temperament1) {
@@ -403,7 +407,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getLatestActivity = async () => {
       if (!accessToken) {
-        navigate("/login");
+            navigate("/login?token_value=null");
       } else {
         try {
           axios
@@ -413,14 +417,16 @@ const Dashboard = () => {
             )
             .then((res) => {
               if (res.status === 403) {
-                navigate("/login");
+                    navigate("/login?token_value=null");
               }
               if (
-                res.data.statusCode === 409 ||
+                res.data.statusCode === 403 ||
                 res.data.statusCode === 401 ||
-                res.data.statusCode === 400
+                res.data.statusCode === 400  
+
               ) {
-                // console.log(res.data.message);
+                navigate("/login?token_value=null");
+                return;
               }
 
               if (res.data) {
@@ -460,11 +466,11 @@ const Dashboard = () => {
     getLatestActivity();
   }, []);
   return (
-    <div>
+    <div className="dashboardMainContainer">
       <h2 className="page-header">Dashboard</h2>
       <div className="row dashboardCardsContainer">
-        <div className="col-6">
-          <div className="row" style={{ width: "100%" }}>
+        <div className="col-6 topLevelCardsContainer">
+          <div className="row topLevelCards">
             <div className="dashboardCardsMain">
               <TestProgressCard props={progressBar} title={"Test Progress"} />
               <TestProgressCard props={profileBar} title={"Profile Progress"} />
@@ -533,7 +539,7 @@ const Dashboard = () => {
               .
             </div>
           )}
-          <div className="card full-height">
+          <div className="card full-height dashboardChart">
             {/* chart */}
             <Chart
               options={
